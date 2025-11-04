@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>مدارس عمران الاهلية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+
+  <!-- OneSignal SDK -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(function(OneSignal) {
+          OneSignal.init({
+              appId: "adbcf77b-5fb0-4c24-b23c-25f052b00853",
+              serviceWorkerPath: "/OneSignalSDKWorker.js",
+              serviceWorkerUpdaterPath: "/OneSignalSDKUpdaterWorker.js"
+          });
+      });
+  </script>
+
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background-color: #f9f9f9;
+    }
+    header img {
+      height: 60px;
+    }
+    section {
+      padding: 40px 20px;
+      border-bottom: 1px solid #ccc;
+    }
+    h2 {
+      color: #004080;
+    }
+    .section-img img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #004080;
+    }
+    #notifyBtn {
+      position: fixed;
+      top: 15px;
+      left: 70px;
+      z-index: 9999;
+      background-color: #ffc107;
+      color: black;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      cursor: pointer;
+    }
+    #notifyBtn:hover {
+      background-color: #e0a800;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- زر تفعيل الإشعارات -->
+  <button id="notifyBtn" title="تفعيل الإشعارات">🔔</button>
+<button id="installBtn" hidden>📲 تثبيت التطبيق</button>
+
+  <!-- شريط التنقل -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">مدارس عمران الاهلية</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#results">المحصلات والنتائج</a></li>
+          <li class="nav-item"><a class="nav-link" href="#absence">غياب الطلاب</a></li>
+          
+          <li class="nav-item"><a class="nav-link" href="#activities">الأنشطة الدراسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="#rules">الأنظمة والقوانين</a></li>
+          <li class="nav-item"><a class="nav-link" href="#location">موقع المجمع</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- رأس الصفحة -->
+  <header class="bg-light text-center p-4 d-flex justify-content-between align-items-center">
+    <h1 class="m-0">مدارس عمران الاهلية</h1>
+    <img src="logo.png" alt="شعار المدرسة">
+  </header>
+
+  <!-- صورة -->
+  <section class="section-img text-center">
+    <img src="school.gif" alt="صورة المدرسة المتحركة">
+  </section>
+
+  <section id="results">
+  <h2>المحصلات والنتائج</h2>
+  <p>يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم.</p>
+  <div class="row row-cols-2 g-2">
+    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الاول الاساسي</a></div>
+    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثاني الاساسي</a></div>
+    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثالث الاساسي</a></div>
+    <div class="col"><a href="results_grade1.html" class="btn btn-primary w-100">الرابع الاساسي</a></div>
+    <div class="col"><a href="‏‏results_grade2 .html" class="btn btn-primary w-100">الخامس الاساسي</a></div>
+    <div class="col"><a href="results_grade3.html" class="btn btn-primary w-100">السادس الاساسي</a></div>
+    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السابع الاساسي</a></div>
+    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثامن الاساسي</a></div>
+    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">التاسع الاساسي</a></div>
+    <div class="col"><a href="results_grade1.html" class="btn btn-primary w-100">الاول الثانوي</a></div>
+    <div class="col"><a href="‏‏results_grade2 .html" class="btn btn-primary w-100">الثاني الثانوي</a></div>
+    <div class="col"><a href="results_grade3.html" class="btn btn-primary w-100">الثالث الثانوي</a></div>
+  </div>
+</section>
+
+
+  <section id="absence">
+    <h2>غياب الطلاب</h2>
+    <p>يمكنك الاطلاع على عدد ايام الغياب وتاريخ الغياب للطالب من خلال هذا القسم.</p>
+    <a href="absence.html" class="btn btn-primary">متابعة غياب النصف الاول</a>
+    <a href="‏‏absence - 1.html" class="btn btn-primary">متابعة الغياب النصف الثاني</a>
+  </section>
+
+
+  <section id="activities">
+    <h2>الأنشطة الدراسية</h2>
+    <p>تعرف على الأنشطة والمسابقات التي تقيمها المدرسة لتعزيز مهارات الطلاب.</p>
+    <a href="#" class="btn btn-warning">عرض الأنشطة</a>
+  </section>
+
+ <section id="rules">
+  <h2>الأنظمة والقوانين</h2>
+  <p>راجع لوائح المدرسة والقوانين التنظيمية التي تضمن بيئة تعليمية سليمة.</p>
+  <a href="#" class="btn btn-danger" id="showRulesBtn">قراءة اللوائح</a>
+
+  <div id="rulesContent" style="display: none; margin-top: 20px;">
+    <ul>
+      <li>❖ الالتزام بالحضور اليومي وعدم التأخير عن الحصص الدراسية.</li>
+      <li>❖ احترام المعلمين والإداريين والزملاء في جميع الأوقات.</li>
+      <li>❖ الحفاظ على نظافة الصف والمرافق العامة داخل المجمع.</li>
+      <li>❖ يمنع استخدام الهاتف المحمول أثناء الدوام الدراسي.</li>
+      <li>❖ الالتزام بالزي المدرسي الرسمي وعدم التعديل عليه.</li>
+      <li>❖ يمنع الغش في الاختبارات ويعرض الطالب للمساءلة.</li>
+      <li>❖ المحافظة على الكتب والوسائل التعليمية من التلف أو الضياع.</li>
+      <li>❖ يمنع مغادرة المدرسة أثناء الدوام إلا بإذن خطي من الإدارة.</li>
+      <li>❖ المشاركة الإيجابية في الأنشطة المدرسية والفعاليات التربوية.</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  const showRulesBtn = document.getElementById("showRulesBtn");
+  const rulesContent = document.getElementById("rulesContent");
+
+  showRulesBtn.addEventListener("click", function(e) {
+    e.preventDefault(); // منع الانتقال للرابط #
+    rulesContent.style.display = rulesContent.style.display === "none" ? "block" : "none";
+  });
+</script>
+
+
+
+  
+   <section id="location">
+  <h2>موقع مداس عمران الاهلية على الخريطة</h2>
+  <p>في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الاهلية من خلال خرائط قوقل.</p>
+  <div class="ratio ratio-16x9">
+    <iframe 
+      src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" 
+      width="100%" 
+      height="450" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- تفعيل زر الإشعارات بعد التحميل -->
+ <script>
+  const notifyBtn = document.getElementById('notifyBtn');
+  notifyBtn.style.display = 'none'; // إخفاء الزر افتراضيًا
+
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function(OneSignal) {
+
+    // التحقق من حالة الاشتراك
+    OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
+      if (!isEnabled) {
+        notifyBtn.style.display = 'block'; // إظهار الزر إذا لم يكن مشترك
+      }
+    });
+
+    // عند الضغط على الزر، طلب الاشتراك مرة أخرى
+    notifyBtn.addEventListener('click', function () {
+      OneSignal.showSlidedownPrompt().catch(function (error) {
+        alert("حدث خطأ أثناء محاولة تفعيل الإشعارات.");
+        console.error(error);
+      });
+    });
+  });
+</script>
+
+
+<script>
+  let deferredPrompt;
+  const installBtn = document.getElementById('installBtn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // منع المتصفح من إظهار التثبيت التلقائي
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.hidden = false; // إظهار الزر
+
+    installBtn.addEventListener('click', async () => {
+      installBtn.hidden = true;
+      deferredPrompt.prompt(); // عرض نافذة التثبيت
+
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('تم تثبيت التطبيق ✅');
+      } else {
+        console.log('تم إلغاء التثبيت ❌');
+      }
+      deferredPrompt = null;
+    });
+  });
+
+  // إخفاء الزر بعد التثبيت
+  window.addEventListener('appinstalled', () => {
+    console.log('تم التثبيت بالفعل');
+    installBtn.hidden = true;
+  });
+</script>
+
+</body>
+</html>
