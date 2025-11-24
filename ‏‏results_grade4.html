@@ -122,6 +122,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
+      font-size: 12px;
     }
     th, td {
       border: 1px solid black;
@@ -139,6 +140,20 @@
       background-color: #f2f2f2;
       font-weight: bold;
     }
+    
+    /* تحسينات للطباعة */
+    .print-optimized {
+      page-break-inside: avoid;
+    }
+    .compact-table {
+      font-size: 11px;
+    }
+    .compact-table th,
+    .compact-table td {
+      padding: 2px;
+      height: 12px;
+    }
+    
     @media (max-width: 600px) {
       .header-container {
         flex-wrap: nowrap;
@@ -157,20 +172,40 @@
         font-size: 14px;
       }
     }
+    
     @media print {
       body {
         background: white;
+        margin: 0;
+        padding: 0;
       }
       .page-container {
         box-shadow: none;
         border: 2px solid black;
         margin: 0;
         padding: 10px;
+        max-width: 100%;
+        width: 100%;
       }
       .home-button,
       .print-button,
-      .pdf-button {
-        display: none;
+      .pdf-button,
+      #choiceSection {
+        display: none !important;
+      }
+      #results {
+        display: block !important;
+        margin-top: 0;
+      }
+      #resultsForm {
+        display: none !important;
+      }
+      table {
+        font-size: 10px;
+      }
+      th, td {
+        padding: 1px;
+        height: 10px;
       }
     }
   </style>
@@ -297,7 +332,7 @@
         currentStudentData = data;
 
         // بيانات الطالب
-        let studentInfo = `<h3>بيانات الطالب</h3><table border="1"><tr><th>المجال</th><th>القيمة</th></tr>`;
+        let studentInfo = `<h3>بيانات الطالب</h3><table border="1" class="compact-table"><tr><th>المجال</th><th>القيمة</th></tr>`;
         for (const [key, value] of Object.entries(data.بيانات_الطالب)) {
           studentInfo += `<tr><td><strong>${key}</strong></td><td>${value || "غير متوفر"}</td></tr>`;
         }
@@ -307,7 +342,7 @@
         let subjectsTable = createSubjectsTable(data.المواد_الدراسية, currentResultType);
 
         // جدول النتيجة النهائية
-        let finalResults = `<h3>النتيجة النهائية</h3><table border="1"><tr><th>المجال</th><th>القيمة</th></tr>`;
+        let finalResults = `<h3>النتيجة النهائية</h3><table border="1" class="compact-table"><tr><th>المجال</th><th>القيمة</th></tr>`;
         finalResults += `<tr><td>المجموع الكلي</td><td>${data.النتيجة_النهائية?.المجموع_الكلي || "غير متوفر"}</td></tr>`;
         finalResults += `<tr><td>النسبة</td><td>${data.النتيجة_النهائية?.النسبة || "غير متوفر"}%</td></tr>`;
         finalResults += `<tr><td>التقدير العام</td><td>${data.النتيجة_النهائية?.النتيجة || "غير متوفر"}</td></tr>`;
@@ -316,6 +351,9 @@
 
         output.innerHTML = studentInfo + subjectsTable + finalResults;
         document.getElementById("savePdfButton").style.display = "inline-block";
+        
+        // إخفاء نموذج إدخال الكود بعد عرض النتائج
+        document.getElementById("resultsForm").style.display = "none";
 
         // تسجيل عملية العرض في جدول جوجل شيت
         logViewToGoogleSheet(studentCode, data.بيانات_الطالب.الاسم, currentApiKey);
@@ -335,7 +373,7 @@
     // تحديد هيكل الجدول حسب نوع النتيجة
     if (resultType === "API_نصف_العام") {
       // جدول نصف العام
-      tableHeader = `<h4></h4><table border="1"><tr><th>المادة</th><th>المحصلة الأولى</th><th>نصف العام</th><th>المجموع</th></tr>`;
+      tableHeader = `<h4></h4><table border="1" class="compact-table"><tr><th>المادة</th><th>المحصلة الأولى</th><th>نصف العام</th><th>المجموع</th></tr>`;
       
       for (const [subject, grades] of Object.entries(subjectsData)) {
         tableRows += `<tr>
@@ -348,7 +386,7 @@
     } 
     else if (resultType === "API_آخر_العام") {
       // جدول آخر العام
-      tableHeader = `<h4></h4><table border="1"><tr><th>المادة</th><th>المحصلة الأولى</th><th>نصف العام</th><th>المحصلة الثانية</th><th>آخر العام</th><th>المجموع</th></tr>`;
+      tableHeader = `<h4></h4><table border="1" class="compact-table"><tr><th>المادة</th><th>المحصلة الأولى</th><th>نصف العام</th><th>المحصلة الثانية</th><th>آخر العام</th><th>المجموع</th></tr>`;
       
       for (const [subject, grades] of Object.entries(subjectsData)) {
         tableRows += `<tr>
@@ -363,456 +401,7 @@
     } 
     else {
       // جدول شهري (افتراضي)
-      tableHeader = `<h4></h4><table border="1"><tr><th>المادة</th><th>مواظبة</th><th>واجبات</th><th>شفهي</th><th>تحريري</th><th>المجموع</th></tr>`;
-      
-      for (const [subject, grades] of Object.entries(subjectsData)) {
-        tableRows += `<tr>
-          <td>${subject}</td>
-          <td>${grades.مواظبة || ""}</td>
-          <td>${grades.الواجبات || ""}</td>
-          <td>${grades.شفهي || ""}</td>
-          <td>${grades.تحريري || ""}</td>
-          <td>${grades.المجموع || "غير متوفر"}</td>
-        </tr>`;
-      }
-    }
-
-    return tableHeader + tableRows + `</table>`;
-  }
-
-  // دالة لتسجيل عملية العرض في جدول جوجل شيت
-  function logViewToGoogleSheet(studentCode, studentName, resultType) {
-    // رابط API لتسجيل العرض (يجب إنشاء هذا الـ API في جوجل شيت)
-    const logApiUrl = "https://script.google.com/macros/s/AKfycbx-vVS2ZyBzgEvvDF82mX09cdIf5pQs1DvxBZdkPl7jqqVXmSWn-1SI6W-iMUR_b2on/exec";
-    
-    const logData = {
-      studentCode: studentCode,
-      studentName: studentName,
-      resultType: resultType,
-      viewDate: new Date().toISOString(),
-      action: "تم الاطلاع على النتيجة"
-    };
-
-    // إرسال البيانات لتسجيلها
-    fetch(logApiUrl, {
-      method: "POST",
-      body: JSON.stringify(logData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("تم تسجيل العرض بنجاح:", data);
-    })
-    .catch(error => {
-      console.error("خطأ في تسجيل العرض:", error);
-    });
-  }
-
-  // دالة لحفظ النتيجة كـ PDF
-  document.getElementById("savePdfButton").addEventListener("click", function() {
-    const element = document.getElementById("resultsOutput");
-    const studentName = currentStudentData?.بيانات_الطالب?.الاسم || "طالب";
-    const resultType = getResultTypeName(currentApiKey);
-    
-    const options = {
-      margin: 10,
-      filename: `نتيجة_${studentName}_${resultType}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    // إضافة رأس الصفحة إلى الـ PDF
-    const header = document.querySelector('header').cloneNode(true);
-    const tempContainer = document.createElement('div');
-    tempContainer.appendChild(header);
-    tempContainer.appendChild(element.cloneNode(true));
-    
-    html2pdf().from(tempContainer).set(options).save();
-  });
-
-  // دالة للحصول على اسم النتيجة بالعربية
-  function getResultTypeName(apiKey) {
-    const typeNames = {
-      "API_محرم": "محرم",
-      "API_صفر": "صفر",
-      "API_ربيع_اول": "ربيع_أول",
-      "API_نصف_العام": "نصف_العام",
-      "API_جماد_اول": "جماد_أول",
-      "API_جماد_ثاني": "جماد_ثاني",
-      "API_رجب": "رجب",
-      "API_آخر_العام": "آخر_العام"
-    };
-    
-    return typeNames[apiKey] || "نتيجة";
-  }
-</script>
-
-</html><!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>مدارس عمران الاهلية - الرئيسية</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
-  <!-- مكتبة html2pdf.js لتحويل HTML إلى PDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      margin: 0;
-      background-color: #f9f9f9;
-    }
-    .page-container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      background: white;
-      border: 3px solid #4CAF50;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    header {
-      background-color: #e8f5e9;
-      color: black;
-      padding: 10px 15px;
-      border-radius: 8px;
-    }
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      flex-wrap: nowrap;
-    }
-    .header-right img {
-      height: 60px;
-    }
-    .header-center {
-      flex: 1;
-      padding: 0 10px;
-    }
-    .header-center h1 {
-      margin: 5px 0;
-      font-size: 20px;
-    }
-    .header-center h2 {
-      margin: 0;
-      font-size: 16px;
-    }
-    .header-left {
-      text-align: right;
-      font-size: 12px;
-      line-height: 1.5;
-      max-width: 30%;
-    }
-    .home-button, .print-button, .pdf-button {
-      display: inline-block;
-      margin: 10px 5px;
-      padding: 8px 12px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .print-button {
-      background-color: #2196F3;
-    }
-    .pdf-button {
-      background-color: #f44336;
-    }
-    .home-button:hover {
-      background-color: #45a049;
-    }
-    .print-button:hover {
-      background-color: #1976D2;
-    }
-    .pdf-button:hover {
-      background-color: #d32f2f;
-    }
-    .btn-choice {
-      margin: 5px;
-      padding: 10px 20px;
-      font-size: 15px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      background-color: #e0f7fa;
-    }
-    #resultsForm label {
-      font-size: 13px;
-      color: #444;
-      margin-bottom: 5px;
-      display: inline-block;
-    }
-    #resultsForm input[type="text"] {
-      width: 200px;
-      padding: 5px 10px;
-      font-size: 13px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin: 5px 0;
-    }
-    #resultsForm button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 6px 14px;
-      font-size: 14px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-right: 5px;
-    }
-    #resultsForm button:hover {
-      background-color: #388e3c;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 3px;
-      height: 15px;
-      text-align: center;
-      vertical-align: middle;
-    }
-    h4 {
-      font-size: 1px;
-      margin: 0;
-      line-height: 0.1;
-    }
-    th {
-      background-color: #f2f2f2;
-      font-weight: bold;
-    }
-    @media (max-width: 600px) {
-      .header-container {
-        flex-wrap: nowrap;
-        flex-direction: row;
-      }
-      .header-right img {
-        height: 50px;
-      }
-      .header-left {
-        font-size: 11px;
-      }
-      .header-center h1 {
-        font-size: 18px;
-      }
-      .header-center h2 {
-        font-size: 14px;
-      }
-    }
-    @media print {
-      body {
-        background: white;
-      }
-      .page-container {
-        box-shadow: none;
-        border: 2px solid black;
-        margin: 0;
-        padding: 10px;
-      }
-      .home-button,
-      .print-button,
-      .pdf-button {
-        display: none;
-      }
-    }
-  </style>
-</head>
-<body>
-<div class="page-container">
-  <header>
-    <div class="header-container">
-      <div class="header-left">
-        <p>الجمهورية اليمنية</p>
-        <p>وزارة التربية والتعليم</p>
-        <p>مكتب التربية والتعليم - م/ عمران</p>
-      </div>
-      <div class="header-center">
-        <h1>مدارس عمران الاهلية</h1>
-        <h2 id="H1">نتائج الصفوف الاساسية</h2>
-      </div>
-      <div class="header-right">
-        <img src="logo.png" alt="شعار المدرسة" />
-      </div>
-    </div>
-  </header>
-
-  <div style="text-align:center;">
-    <a href="index.html" class="home-button">🏠 الرئيسية</a>
-    <a href="#" class="print-button" onclick="window.print()">🖨️ طباعة الصفحة</a>
-    <a href="#" class="pdf-button" id="A1" style="display:none;">📄 حفظ كـ PDF</a>
-  </div>
-
-  <section id="choiceSection" style="text-align: center; margin-top: 30px;">
-    <h3>اختر نوع النتيجة:</h3>
-    <button class="btn-choice" data-api="API_محرم" data-title="نتائج الصفوف الاساسية شهر محرم">📘 محصلة شهر محرم</button>
-    <button class="btn-choice" data-api="API_صفر" data-title="نتائج الصفوف الاساسية شهر صفر">📘 محصلة شهر صفر</button>
-    <button class="btn-choice" data-api="API_ربيع_اول" data-title="نتائج الصفوف الاساسية شهر ربيع أول">📘 محصلة شهر ربيع أول</button>
-    <button class="btn-choice" data-api="API_نصف_العام" data-title="نتائج الصفوف الاساسية نصف العام">📗 نتيجة نصف العام</button>
-    <button class="btn-choice" data-api="API_جماد_اول" data-title="نتائج الصفوف الاساسية شهر جماد أول">📙 محصلة شهر جماد أول</button>
-    <button class="btn-choice" data-api="API_جماد_ثاني" data-title="نتائج الصفوف الاساسية شهر جماد ثاني">📙 محصلة شهر جماد ثاني</button>
-    <button class="btn-choice" data-api="API_رجب" data-title="نتائج الصفوف الاساسية شهر رجب">📙 محصلة شهر رجب</button>
-    <button class="btn-choice" data-api="API_آخر_العام" data-title="نتائج الصفوف الاساسية آخر العام">📕 نتيجة آخر العام</button>
-  </section>
-
-  <section id="results" style="display: none; text-align:center; margin-top: 30px;">
-    <form id="Form1">
-      <label for="studentCode">أدخل كود الطالب:</label>
-      <input type="text" id="Text1" name="studentCode" required />
-      <button type="submit">عرض النتائج</button>
-    </form>
-    <div id="Div1"></div>
-  </section>
-
-</div>
-
-<script>
-  // تحويل الأرقام الهندية إلى عربية
-  function convertToEnglishNumbers(input) {
-    return input.replace(/[\u0660-\u0669]/g, function (c) {
-      return c.charCodeAt(0) - 0x0660;
-    });
-  }
-
-  let currentApiUrl = "";
-  let currentApiKey = "";
-  let currentStudentCode = "";
-  let currentStudentData = null;
-  let currentResultType = "";
-
-  // التعامل مع أزرار الاختيار
-  document.querySelectorAll(".btn-choice").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const apiKey = btn.dataset.api;
-      const pageTitle = btn.dataset.title;
-
-      // روابط API حسب الورقة
-      const apiMap = {
-        API_محرم: "https://script.google.com/macros/s/AKfycbz8kLBv7_sUig3ePwqTlnEA0ef7feYQlAz9ju1xxPq8_HmQ6PJki9xGZH2PWwQhGaY4/exec",
-        API_صفر: "https://script.google.com/macros/s/AKfycbyVy7VR-bzcgoy5RIY9NrYcE4xH82k-2aGvl_wn2JeDqS9szKObLjA78xyHZrLSl1vs_g/exec",
-        API_ربيع_اول: "https://script.google.com/macros/s/yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy/exec",
-        API_جماد_اول: "https://script.google.com/macros/s/AKfycbx-vVS2ZyBzgEvvDF82mX09cdIf5pQs1DvxBZdkPl7jqqVXmSWn-1SI6W-iMUR_b2on/exec",
-        API_جماد_ثاني: "https://script.google.com/macros/s/wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww/exec",
-        API_رجب: "https://script.google.com/macros/s/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv/exec",
-        API_آخر_العام: "https://script.google.com/macros/s/AKfycbxgiRWbbli3VQ-9K_7Z0YSXhd09vtCsNhWNi0DgwQF5yHWc3m80rUrR92Wf85_rub2R/exec",
-      };
-
-      currentApiUrl = apiMap[apiKey];
-      currentApiKey = apiKey;
-      currentResultType = apiKey;
-
-      // تحديث عنوان الصفحة
-      document.getElementById("pageTitle").textContent = pageTitle;
-
-      document.getElementById("choiceSection").style.display = "none";
-      document.getElementById("results").style.display = "block";
-      document.getElementById("resultsOutput").innerHTML = ""; // تفريغ النتائج
-      document.getElementById("savePdfButton").style.display = "none"; // إخفاء زر PDF
-    });
-  });
-
-  // عند إرسال النموذج
-  document.getElementById("resultsForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    let studentCode = document.getElementById("studentCode").value.trim();
-    studentCode = convertToEnglishNumbers(studentCode);
-    currentStudentCode = studentCode;
-
-    if (!studentCode) {
-      alert("يرجى إدخال كود الطالب!");
-      return;
-    }
-
-    fetch(`${currentApiUrl}?code=${studentCode}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const output = document.getElementById("resultsOutput");
-        output.innerHTML = "";
-
-        if (data.status !== "نجاح") {
-          output.innerHTML = `<p style="color: red;">${data.message}</p>`;
-          document.getElementById("savePdfButton").style.display = "none";
-          return;
-        }
-
-        // حفظ بيانات الطالب للاستخدام لاحقاً
-        currentStudentData = data;
-
-        // بيانات الطالب
-        let studentInfo = `<h3>بيانات الطالب</h3><table border="1"><tr><th>المجال</th><th>القيمة</th></tr>`;
-        for (const [key, value] of Object.entries(data.بيانات_الطالب)) {
-          studentInfo += `<tr><td><strong>${key}</strong></td><td>${value || "غير متوفر"}</td></tr>`;
-        }
-        studentInfo += `</table>`;
-
-        // إنشاء جدول المواد حسب نوع النتيجة
-        let subjectsTable = createSubjectsTable(data.المواد_الدراسية, currentResultType);
-
-        // جدول النتيجة النهائية
-        let finalResults = `<h3>النتيجة النهائية</h3><table border="1"><tr><th>المجال</th><th>القيمة</th></tr>`;
-        finalResults += `<tr><td>المجموع الكلي</td><td>${data.النتيجة_النهائية?.المجموع_الكلي || "غير متوفر"}</td></tr>`;
-        finalResults += `<tr><td>النسبة</td><td>${data.النتيجة_النهائية?.النسبة || "غير متوفر"}%</td></tr>`;
-        finalResults += `<tr><td>التقدير العام</td><td>${data.النتيجة_النهائية?.النتيجة || "غير متوفر"}</td></tr>`;
-        finalResults += `<tr><td>الترتيب</td><td>${data.النتيجة_النهائية?.الترتيب || ""}</td></tr>`;
-        finalResults += `</table>`;
-
-        output.innerHTML = studentInfo + subjectsTable + finalResults;
-        document.getElementById("savePdfButton").style.display = "inline-block";
-
-        // تسجيل عملية العرض في جدول جوجل شيت
-        logViewToGoogleSheet(studentCode, data.بيانات_الطالب.الاسم, currentApiKey);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("حدث خطأ أثناء جلب البيانات.");
-        document.getElementById("savePdfButton").style.display = "none";
-      });
-  });
-
-  // دالة لإنشاء جدول المواد حسب نوع النتيجة
-  function createSubjectsTable(subjectsData, resultType) {
-    let tableHeader = "";
-    let tableRows = "";
-
-    // تحديد هيكل الجدول حسب نوع النتيجة
-    if (resultType === "API_نصف_العام") {
-      // جدول نصف العام
-      tableHeader = `<h4></h4><table border="1"><tr><th>المادة</th><th>المحصلة الأولى</th><th>نصف العام</th><th>المجموع</th></tr>`;
-      
-      for (const [subject, grades] of Object.entries(subjectsData)) {
-        tableRows += `<tr>
-          <td>${subject}</td>
-          <td>${grades.المحصلة_الأولى || ""}</td>
-          <td>${grades.نصف_العام || ""}</td>
-          <td>${grades.المجموع || "غير متوفر"}</td>
-        </tr>`;
-      }
-    } 
-    else if (resultType === "API_آخر_العام") {
-      // جدول آخر العام
-      tableHeader = `<h4></h4><table border="1"><tr><th>المادة</th><th>المحصلة الأولى</th><th>نصف العام</th><th>المحصلة الثانية</th><th>آخر العام</th><th>المجموع</th></tr>`;
-      
-      for (const [subject, grades] of Object.entries(subjectsData)) {
-        tableRows += `<tr>
-          <td>${subject}</td>
-          <td>${grades.المحصلة_الأولى || ""}</td>
-          <td>${grades.نصف_العام || ""}</td>
-          <td>${grades.المحصلة_الثانية || ""}</td>
-          <td>${grades.آخر_العام || ""}</td>
-          <td>${grades.المجموع || "غير متوفر"}</td>
-        </tr>`;
-      }
-    } 
-    else {
-      // جدول شهري (افتراضي)
-      tableHeader = `<h4></h4><table border="1"><tr><th>المادة</th><th>مواظبة</th><th>واجبات</th><th>شفهي</th><th>تحريري</th><th>المجموع</th></tr>`;
+      tableHeader = `<h4></h4><table border="1" class="compact-table"><tr><th>المادة</th><th>مواظبة</th><th>واجبات</th><th>شفهي</th><th>تحريري</th><th>المجموع</th></tr>`;
       
       for (const [subject, grades] of Object.entries(subjectsData)) {
         tableRows += `<tr>
