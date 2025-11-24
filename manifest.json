@@ -1,0 +1,23 @@
+{
+  "name": "مدارس عمران الاهلية",
+  "short_name": "مدارس عمران",
+  "description": "التطبيق الرسمي لمدارس عمران الاهلية للوصول السريع للنتائج والخدمات",
+  "start_url": "/amran/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#004080",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "productivity"]
+}

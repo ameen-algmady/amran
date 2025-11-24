@@ -11,17 +11,7 @@
 
   <!-- OneSignal SDK -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(function(OneSignal) {
-          OneSignal.init({
-              appId: "adbcf77b-5fb0-4c24-b23c-25f052b00853",
-              serviceWorkerPath: "/OneSignalSDKWorker.js",
-              serviceWorkerUpdaterPath: "/OneSignalSDKUpdaterWorker.js"
-          });
-      });
-  </script>
-
+  
   <style>
     body {
       font-family: 'Tahoma', sans-serif;
@@ -60,13 +50,93 @@
     #notifyBtn:hover {
       background-color: #e0a800;
     }
+    
+    /* تنسيق زر التثبيت الجديد */
+    #installBtn {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      z-index: 10000;
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    
+    #installBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(76, 175, 80, 0.6);
+      background: linear-gradient(135deg, #43A047, #1B5E20);
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); }
+      50% { box-shadow: 0 4px 20px rgba(76, 175, 80, 0.8); }
+      100% { box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); }
+    }
+    
+    /* شريط التثبيت العلوي */
+    #installBanner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #2196F3, #0D47A1);
+      color: white;
+      padding: 12px 20px;
+      text-align: center;
+      z-index: 9998;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      display: none;
+    }
+    
+    #installBanner button {
+      background: white;
+      color: #2196F3;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      margin-right: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    #installBanner button:hover {
+      background: #f5f5f5;
+    }
+    
+    #closeBanner {
+      background: transparent !important;
+      color: white !important;
+      font-size: 18px;
+      padding: 0 8px !important;
+    }
   </style>
 </head>
 <body>
 
   <!-- زر تفعيل الإشعارات -->
   <button id="notifyBtn" title="تفعيل الإشعارات">🔔</button>
-<button id="installBtn" hidden>📲 تثبيت التطبيق</button>
+  
+  <!-- شريط التثبيت العلوي -->
+  <div id="installBanner">
+    <span>📲 تثبيت تطبيق مدارس عمران الاهلية للوصول السريع</span>
+    <button id="installBannerBtn">تثبيت الآن</button>
+    <button id="closeBanner">✕</button>
+  </div>
+  
+  <!-- زر التثبيت الرئيسي -->
+  <button id="installBtn">📲 تثبيت التطبيق</button>
 
   <!-- شريط التنقل -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -79,7 +149,6 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="#results">المحصلات والنتائج</a></li>
           <li class="nav-item"><a class="nav-link" href="#absence">غياب الطلاب</a></li>
-          
           <li class="nav-item"><a class="nav-link" href="#activities">الأنشطة الدراسية</a></li>
           <li class="nav-item"><a class="nav-link" href="#rules">الأنظمة والقوانين</a></li>
           <li class="nav-item"><a class="nav-link" href="#location">موقع المجمع</a></li>
@@ -91,33 +160,32 @@
   <!-- رأس الصفحة -->
   <header class="bg-light text-center p-4 d-flex justify-content-between align-items-center">
     <h1 class="m-0">مدارس عمران الاهلية</h1>
-    <img src="logo.png" alt="شعار المدرسة">
+    <img src="logo.png" alt="شعار المدرسة" id="schoolLogo">
   </header>
 
   <!-- صورة -->
   <section class="section-img text-center">
-    <img src="school.gif" alt="صورة المدرسة المتحركة">
+    <img src="school.gif" alt="صورة المدرسة المتحركة" id="schoolImage">
   </section>
 
   <section id="results">
-  <h2>المحصلات والنتائج</h2>
-  <p>يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم.</p>
-  <div class="row row-cols-2 g-2">
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الاول الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثاني الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثالث الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الرابع الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الخامس الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السادس الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السابع الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثامن الاساسي</a></div>
-    <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">التاسع الاساسي</a></div>
-    <div class="col"><a href="results_grade1.html" class="btn btn-primary w-100">الاول الثانوي</a></div>
-    <div class="col"><a href="‏‏results_grade2 .html" class="btn btn-primary w-100">الثاني الثانوي</a></div>
-    <div class="col"><a href="results_grade3.html" class="btn btn-primary w-100">الثالث الثانوي</a></div>
-  </div>
-</section>
-
+    <h2>المحصلات والنتائج</h2>
+    <p>يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم.</p>
+    <div class="row row-cols-2 g-2">
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الاول الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثاني الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثالث الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الرابع الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الخامس الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السادس الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السابع الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثامن الاساسي</a></div>
+      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">التاسع الاساسي</a></div>
+      <div class="col"><a href="results_grade1.html" class="btn btn-primary w-100">الاول الثانوي</a></div>
+      <div class="col"><a href="‏‏results_grade2 .html" class="btn btn-primary w-100">الثاني الثانوي</a></div>
+      <div class="col"><a href="results_grade3.html" class="btn btn-primary w-100">الثالث الثانوي</a></div>
+    </div>
+  </section>
 
   <section id="absence">
     <h2>غياب الطلاب</h2>
@@ -126,123 +194,161 @@
     <a href="‏‏absence - 1.html" class="btn btn-primary">متابعة الغياب النصف الثاني</a>
   </section>
 
-
   <section id="activities">
     <h2>الأنشطة الدراسية</h2>
     <p>تعرف على الأنشطة والمسابقات التي تقيمها المدرسة لتعزيز مهارات الطلاب.</p>
     <a href="#" class="btn btn-warning">عرض الأنشطة</a>
   </section>
 
- <section id="rules">
-  <h2>الأنظمة والقوانين</h2>
-  <p>راجع لوائح المدرسة والقوانين التنظيمية التي تضمن بيئة تعليمية سليمة.</p>
-  <a href="#" class="btn btn-danger" id="showRulesBtn">قراءة اللوائح</a>
+  <section id="rules">
+    <h2>الأنظمة والقوانين</h2>
+    <p>راجع لوائح المدرسة والقوانين التنظيمية التي تضمن بيئة تعليمية سليمة.</p>
+    <a href="#" class="btn btn-danger" id="showRulesBtn">قراءة اللوائح</a>
 
-  <div id="rulesContent" style="display: none; margin-top: 20px;">
-    <ul>
-      <li>❖ الالتزام بالحضور اليومي وعدم التأخير عن الحصص الدراسية.</li>
-      <li>❖ احترام المعلمين والإداريين والزملاء في جميع الأوقات.</li>
-      <li>❖ الحفاظ على نظافة الصف والمرافق العامة داخل المجمع.</li>
-      <li>❖ يمنع استخدام الهاتف المحمول أثناء الدوام الدراسي.</li>
-      <li>❖ الالتزام بالزي المدرسي الرسمي وعدم التعديل عليه.</li>
-      <li>❖ يمنع الغش في الاختبارات ويعرض الطالب للمساءلة.</li>
-      <li>❖ المحافظة على الكتب والوسائل التعليمية من التلف أو الضياع.</li>
-      <li>❖ يمنع مغادرة المدرسة أثناء الدوام إلا بإذن خطي من الإدارة.</li>
-      <li>❖ المشاركة الإيجابية في الأنشطة المدرسية والفعاليات التربوية.</li>
-    </ul>
-  </div>
-</section>
+    <div id="rulesContent" style="display: none; margin-top: 20px;">
+      <ul>
+        <li>❖ الالتزام بالحضور اليومي وعدم التأخير عن الحصص الدراسية.</li>
+        <li>❖ احترام المعلمين والإداريين والزملاء في جميع الأوقات.</li>
+        <li>❖ الحفاظ على نظافة الصف والمرافق العامة داخل المجمع.</li>
+        <li>❖ يمنع استخدام الهاتف المحمول أثناء الدوام الدراسي.</li>
+        <li>❖ الالتزام بالزي المدرسي الرسمي وعدم التعديل عليه.</li>
+        <li>❖ يمنع الغش في الاختبارات ويعرض الطالب للمساءلة.</li>
+        <li>❖ المحافظة على الكتب والوسائل التعليمية من التلف أو الضياع.</li>
+        <li>❖ يمنع مغادرة المدرسة أثناء الدوام إلا بإذن خطي من الإدارة.</li>
+        <li>❖ المشاركة الإيجابية في الأنشطة المدرسية والفعاليات التربوية.</li>
+      </ul>
+    </div>
+  </section>
 
-<script>
-  const showRulesBtn = document.getElementById("showRulesBtn");
-  const rulesContent = document.getElementById("rulesContent");
-
-  showRulesBtn.addEventListener("click", function(e) {
-    e.preventDefault(); // منع الانتقال للرابط #
-    rulesContent.style.display = rulesContent.style.display === "none" ? "block" : "none";
-  });
-</script>
-
-
-
-  
   <section id="location">
-  <h2>موقع مدارس عمران الأهلية على الخريطة</h2>
-  <p>في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الأهلية من خلال خرائط Google.</p>
+    <h2>موقع مدارس عمران الأهلية على الخريطة</h2>
+    <p>في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الأهلية من خلال خرائط Google.</p>
 
-  <div class="ratio ratio-16x9" style="position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden;">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" 
-      width="600" 
-      height="450" 
-      style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" 
-      allowfullscreen="" 
-      loading="lazy" 
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-</section>
-
-
+    <div class="ratio ratio-16x9" style="position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden;">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" 
+        width="600" 
+        height="450" 
+        style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- تفعيل زر الإشعارات بعد التحميل -->
- <script>
-  const notifyBtn = document.getElementById('notifyBtn');
-  notifyBtn.style.display = 'none'; // إخفاء الزر افتراضيًا
+  <script>
+    // إدارة زر الإشعارات
+    const notifyBtn = document.getElementById('notifyBtn');
+    notifyBtn.style.display = 'none';
 
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(function(OneSignal) {
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(OneSignal) {
+      OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
+        if (!isEnabled) {
+          notifyBtn.style.display = 'block';
+        }
+      });
 
-    // التحقق من حالة الاشتراك
-    OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
-      if (!isEnabled) {
-        notifyBtn.style.display = 'block'; // إظهار الزر إذا لم يكن مشترك
-      }
-    });
-
-    // عند الضغط على الزر، طلب الاشتراك مرة أخرى
-    notifyBtn.addEventListener('click', function () {
-      OneSignal.showSlidedownPrompt().catch(function (error) {
-        alert("حدث خطأ أثناء محاولة تفعيل الإشعارات.");
-        console.error(error);
+      notifyBtn.addEventListener('click', function () {
+        OneSignal.showSlidedownPrompt().catch(function (error) {
+          alert("حدث خطأ أثناء محاولة تفعيل الإشعارات.");
+          console.error(error);
+        });
       });
     });
-  });
-</script>
 
+    // إدارة زر التثبيت
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    const installBanner = document.getElementById('installBanner');
+    const installBannerBtn = document.getElementById('installBannerBtn');
+    const closeBanner = document.getElementById('closeBanner');
 
-<script>
-  let deferredPrompt;
-  const installBtn = document.getElementById('installBtn');
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    // منع المتصفح من إظهار التثبيت التلقائي
-    e.preventDefault();
-    deferredPrompt = e;
-    installBtn.hidden = false; // إظهار الزر
-
-    installBtn.addEventListener('click', async () => {
-      installBtn.hidden = true;
-      deferredPrompt.prompt(); // عرض نافذة التثبيت
-
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        console.log('تم تثبيت التطبيق ✅');
-      } else {
-        console.log('تم إلغاء التثبيت ❌');
-      }
-      deferredPrompt = null;
+    // إظهار زر التثبيت بعد تحميل الصفحة
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        installBtn.style.display = 'block';
+        // إظهار الشريط العلوي بعد 5 ثوانٍ
+        setTimeout(() => {
+          if (!localStorage.getItem('bannerClosed')) {
+            installBanner.style.display = 'block';
+          }
+        }, 5000);
+      }, 1000);
     });
-  });
 
-  // إخفاء الزر بعد التثبيت
-  window.addEventListener('appinstalled', () => {
-    console.log('تم التثبيت بالفعل');
-    installBtn.hidden = true;
-  });
-</script>
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // تثبيت مباشر عند النقر
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          
+          if (outcome === 'accepted') {
+            console.log('تم تثبيت التطبيق ✅');
+            installBtn.style.display = 'none';
+            installBanner.style.display = 'none';
+          }
+          deferredPrompt = null;
+        }
+      });
+      
+      // نفس الوظيفة للشريط العلوي
+      installBannerBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          
+          if (outcome === 'accepted') {
+            console.log('تم تثبيت التطبيق ✅');
+            installBtn.style.display = 'none';
+            installBanner.style.display = 'none';
+          }
+          deferredPrompt = null;
+        }
+      });
+    });
 
+    // إغلاق الشريط العلوي
+    closeBanner.addEventListener('click', () => {
+      installBanner.style.display = 'none';
+      localStorage.setItem('bannerClosed', 'true');
+    });
+
+    // إخفاء الزر بعد التثبيت
+    window.addEventListener('appinstalled', () => {
+      console.log('تم التثبيت بالفعل');
+      installBtn.style.display = 'none';
+      installBanner.style.display = 'none';
+    });
+
+    // إظهار/إخفاء القوانين
+    const showRulesBtn = document.getElementById("showRulesBtn");
+    const rulesContent = document.getElementById("rulesContent");
+
+    showRulesBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      rulesContent.style.display = rulesContent.style.display === "none" ? "block" : "none";
+    });
+
+    // تسجيل Service Worker للعمل بدون اتصال
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/amran/sw.js')
+          .then(function(registration) {
+            console.log('Service Worker مسجل بنجاح:', registration.scope);
+          })
+          .catch(function(error) {
+            console.log('فشل تسجيل Service Worker:', error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
