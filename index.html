@@ -84,6 +84,7 @@
       gap: 8px;
       transition: all 0.3s ease;
       animation: pulse 2s infinite;
+      display: none; /* مخفي افتراضيًا */
     }
     
     #installBtn:hover {
@@ -280,10 +281,41 @@
     const installBannerBtn = document.getElementById('installBannerBtn');
     const closeBanner = document.getElementById('closeBanner');
 
+    // التحقق مما إذا كان التطبيق مثبتًا بالفعل
+    function checkIfAppIsInstalled() {
+      // الطريقة 1: التحقق من display-mode
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('التطبيق مثبت بالفعل (display-mode)');
+        return true;
+      }
+      
+      // الطريقة 2: التحقق من وجود علامة في localStorage
+      if (localStorage.getItem('appInstalled') === 'true') {
+        console.log('التطبيق مثبت بالفعل (localStorage)');
+        return true;
+      }
+      
+      // الطريقة 3: التحقق من أن المستخدم يستخدم تطبيق PWA
+      if (window.navigator.standalone === true) {
+        console.log('التطبيق مثبت بالفعل (navigator.standalone)');
+        return true;
+      }
+      
+      return false;
+    }
+
     // إظهار زر التثبيت بعد تحميل الصفحة
     window.addEventListener('load', () => {
+      // إذا كان التطبيق مثبتًا بالفعل، لا تظهر أي أزرار تثبيت
+      if (checkIfAppIsInstalled()) {
+        installBtn.style.display = 'none';
+        installBanner.style.display = 'none';
+        return;
+      }
+
+      // إذا لم يكن مثبتًا، أظهر الأزرار بعد تأخير
       setTimeout(() => {
-        installBtn.style.display = 'block';
+        installBtn.style.display = 'flex';
         // إظهار الشريط العلوي بعد 5 ثوانٍ
         setTimeout(() => {
           if (!localStorage.getItem('bannerClosed')) {
@@ -293,9 +325,17 @@
       }, 1000);
     });
 
+    // الاستماع لحدث beforeinstallprompt
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
+      
+      // التحقق مرة أخرى إذا كان التطبيق مثبتًا
+      if (checkIfAppIsInstalled()) {
+        installBtn.style.display = 'none';
+        installBanner.style.display = 'none';
+        return;
+      }
       
       // تثبيت مباشر عند النقر
       installBtn.addEventListener('click', async () => {
@@ -307,6 +347,8 @@
             console.log('تم تثبيت التطبيق ✅');
             installBtn.style.display = 'none';
             installBanner.style.display = 'none';
+            // حفظ حالة التثبيت
+            localStorage.setItem('appInstalled', 'true');
           }
           deferredPrompt = null;
         }
@@ -322,10 +364,26 @@
             console.log('تم تثبيت التطبيق ✅');
             installBtn.style.display = 'none';
             installBanner.style.display = 'none';
+            // حفظ حالة التثبيت
+            localStorage.setItem('appInstalled', 'true');
           }
           deferredPrompt = null;
         }
       });
+    });
+
+    // حدث عندما يتم تثبيت التطبيق
+    window.addEventListener('appinstalled', () => {
+      console.log('تم تثبيت التطبيق بالفعل');
+      installBtn.style.display = 'none';
+      installBanner.style.display = 'none';
+      // حفظ حالة التثبيت
+      localStorage.setItem('appInstalled', 'true');
+      
+      // إظهار رسالة تأكيد
+      setTimeout(() => {
+        alert('🎉 تم تثبيت التطبيق بنجاح! يمكنك الوصول إليه من شاشتك الرئيسية.');
+      }, 1000);
     });
 
     // إغلاق الشريط العلوي
@@ -334,21 +392,24 @@
       localStorage.setItem('bannerClosed', 'true');
     });
 
-    // إخفاء الزر بعد التثبيت
-    window.addEventListener('appinstalled', () => {
-      console.log('تم التثبيت بالفعل');
-      installBtn.style.display = 'none';
-      installBanner.style.display = 'none';
-    });
-
     // إظهار/إخفاء القوانين
     const showRulesBtn = document.getElementById("showRulesBtn");
     const rulesContent = document.getElementById("rulesContent");
 
-    showRulesBtn.addEventListener("click", function(e) {
-      e.preventDefault();
-      rulesContent.style.display = rulesContent.style.display === "none" ? "block" : "none";
-    });
+    if (showRulesBtn && rulesContent) {
+      showRulesBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        rulesContent.style.display = rulesContent.style.display === "none" ? "block" : "none";
+      });
+    }
+
+    // التحقق الدوري إذا كان التطبيق يعمل في وضع PWA
+    setInterval(() => {
+      if (checkIfAppIsInstalled()) {
+        installBtn.style.display = 'none';
+        installBanner.style.display = 'none';
+      }
+    }, 5000);
 
     // تسجيل Service Worker للعمل بدون اتصال
     if ('serviceWorker' in navigator) {
