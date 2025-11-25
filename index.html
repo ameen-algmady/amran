@@ -50,6 +50,7 @@
   <link rel="manifest" href="/amran/manifest.json">
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
   <!-- OneSignal SDK -->
   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -65,77 +66,249 @@
   </script>
 
   <style>
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #4CAF50;
+      --accent-color: #2196F3;
+      --light-bg: #f8f9fa;
+      --dark-text: #333;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --gradient: linear-gradient(135deg, #004080, #2196F3);
+    }
+    
     body {
-      font-family: 'Tahoma', sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Tahoma', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f9f9f9 0%, #e8f4f8 100%);
+      color: var(--dark-text);
+      line-height: 1.6;
     }
+    
+    /* تحسين الشريط العلوي */
+    .navbar {
+      background: var(--gradient) !important;
+      box-shadow: var(--shadow);
+      padding: 12px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      margin: 0 8px;
+      transition: all 0.3s ease;
+      border-radius: 25px;
+      padding: 8px 16px !important;
+    }
+    
+    .nav-link:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    
+    /* تحسين الرأس */
+    header {
+      background: var(--gradient);
+      color: white;
+      padding: 30px 20px;
+      border-radius: 0 0 30px 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+    }
+    
+    header h1 {
+      font-weight: bold;
+      font-size: 2.2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
     header img {
-      height: 60px;
+      height: 80px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
+    
+    /* تحسين الأقسام */
     section {
-      padding: 40px 20px;
-      border-bottom: 1px solid #ccc;
+      padding: 50px 20px;
+      margin: 30px auto;
+      max-width: 1200px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.05);
     }
-    h2 {
-      color: #004080;
+    
+    section h2 {
+      color: var(--primary-color);
+      font-weight: bold;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 2rem;
+      position: relative;
+      padding-bottom: 15px;
     }
+    
+    section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--secondary-color);
+      border-radius: 2px;
+    }
+    
+    /* تحسين الأزرار */
+    .btn {
+      border-radius: 25px;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary {
+      background: var(--gradient);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    /* تحسين شبكة الصفوف */
+    .row-cols-2 .col {
+      margin-bottom: 15px;
+    }
+    
+    .row-cols-2 .btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 1rem;
+      border-radius: 15px;
+    }
+    
+    /* قسم عن المدرسة */
+    #about {
+      background: var(--light-bg);
+      border-left: 5px solid var(--secondary-color);
+    }
+    
+    #about .col-md-4 {
+      text-align: center;
+      padding: 25px 15px;
+    }
+    
+    #about h4 {
+      color: var(--primary-color);
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    
+    #about .col-md-4:hover {
+      transform: translateY(-5px);
+      transition: all 0.3s ease;
+    }
+    
+    /* تحسين الصورة */
     .section-img img {
       max-width: 100%;
       height: auto;
-      border: 2px solid #004080;
-    }
-    #notifyBtn {
-      position: fixed;
-      top: 15px;
-      left: 70px;
-      z-index: 9999;
-      background-color: #ffc107;
-      color: black;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      cursor: pointer;
-    }
-    #notifyBtn:hover {
-      background-color: #e0a800;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border: 3px solid var(--primary-color);
     }
     
-    /* تنسيق زر التثبيت الجديد */
-    #installBtn {
+    /* تحسين القوانين */
+    #rulesContent {
+      background: var(--light-bg);
+      padding: 25px;
+      border-radius: 15px;
+      border-right: 4px solid var(--accent-color);
+    }
+    
+    #rulesContent ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    #rulesContent li {
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+      font-size: 1.05rem;
+    }
+    
+    #rulesContent li:last-child {
+      border-bottom: none;
+    }
+    
+    /* تحسين الخريطة */
+    .ratio-16x9 {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* أزرار التثبيت والإشعارات */
+    #notifyBtn {
       position: fixed;
-      top: 15px;
-      right: 20px;
-      z-index: 10000;
-      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      top: 20px;
+      left: 20px;
+      z-index: 9999;
+      background: linear-gradient(135deg, #ffc107, #ff9800);
       color: white;
       border: none;
-      border-radius: 25px;
-      padding: 12px 20px;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(255,193,7,0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #notifyBtn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255,193,7,0.6);
+    }
+    
+    #installBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      background: linear-gradient(135deg, var(--secondary-color), #2E7D32);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 25px;
       font-size: 16px;
       font-weight: bold;
-      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       transition: all 0.3s ease;
       animation: pulse 2s infinite;
-      display: none; /* مخفي افتراضيًا */
+      display: none;
     }
     
     #installBtn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(76, 175, 80, 0.6);
-      background: linear-gradient(135deg, #43A047, #1B5E20);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
     }
     
     @keyframes pulse {
-      0% { box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); }
-      50% { box-shadow: 0 4px 20px rgba(76, 175, 80, 0.8); }
-      100% { box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4); }
+      0% { box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
+      50% { box-shadow: 0 4px 25px rgba(76, 175, 80, 0.8); }
+      100% { box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4); }
     }
     
     /* شريط التثبيت العلوي */
@@ -144,173 +317,328 @@
       top: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(135deg, #2196F3, #0D47A1);
+      background: linear-gradient(135deg, var(--accent-color), #0D47A1);
       color: white;
-      padding: 12px 20px;
+      padding: 15px 20px;
       text-align: center;
       z-index: 9998;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.2);
       display: none;
     }
     
     #installBanner button {
       background: white;
-      color: #2196F3;
+      color: var(--accent-color);
       border: none;
       border-radius: 20px;
-      padding: 8px 16px;
+      padding: 10px 20px;
       margin-right: 10px;
       font-weight: bold;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
     
     #installBanner button:hover {
-      background: #f5f5f5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     
     #closeBanner {
       background: transparent !important;
       color: white !important;
       font-size: 18px;
-      padding: 0 8px !important;
+      padding: 0 12px !important;
+    }
+    
+    /* الفوتر */
+    footer {
+      background: var(--gradient);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 50px;
+      border-radius: 30px 30px 0 0;
+    }
+    
+    footer p {
+      margin: 5px 0;
+      opacity: 0.9;
+    }
+    
+    /* تحسينات للهواتف */
+    @media (max-width: 768px) {
+      header {
+        padding: 20px 15px;
+        border-radius: 0 0 20px 20px;
+      }
+      
+      header h1 {
+        font-size: 1.8rem;
+      }
+      
+      header img {
+        height: 60px;
+      }
+      
+      section {
+        padding: 30px 15px;
+        margin: 20px 10px;
+        border-radius: 15px;
+      }
+      
+      section h2 {
+        font-size: 1.6rem;
+      }
+      
+      .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .row-cols-2 .btn {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+      
+      #notifyBtn, #installBtn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+      
+      #installBtn {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .navbar-brand {
+        font-size: 1.2rem;
+      }
+      
+      #about .col-md-4 {
+        margin-bottom: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .row-cols-2 {
+        grid-template-columns: 1fr !important;
+      }
+      
+      header h1 {
+        font-size: 1.5rem;
+      }
+      
+      section h2 {
+        font-size: 1.4rem;
+      }
+    }
+    
+    /* تأثيرات إضافية */
+    .fade-in {
+      animation: fadeIn 0.8s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hover-lift {
+      transition: all 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
     }
   </style>
 </head>
 <body>
 
   <!-- زر تفعيل الإشعارات -->
-  <button id="notifyBtn" title="تفعيل الإشعارات">🔔</button>
+  <button id="notifyBtn" title="تفعيل الإشعارات"><i class="fas fa-bell"></i></button>
   
   <!-- شريط التثبيت العلوي -->
   <div id="installBanner">
-    <span>📲 تثبيت تطبيق مدارس عمران الاهلية للوصول السريع</span>
+    <span><i class="fas fa-download"></i> تثبيت تطبيق مدارس عمران الاهلية للوصول السريع</span>
     <button id="installBannerBtn">تثبيت الآن</button>
     <button id="closeBanner">✕</button>
   </div>
   
   <!-- زر التثبيت الرئيسي -->
-  <button id="installBtn">📲 تثبيت التطبيق</button>
+  <button id="installBtn"><i class="fas fa-download"></i> تثبيت التطبيق</button>
 
   <!-- شريط التنقل -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">مدارس عمران الاهلية</a>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-school me-2"></i>مدارس عمران الاهلية
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#results">المحصلات والنتائج</a></li>
-          <li class="nav-item"><a class="nav-link" href="#absence">غياب الطلاب</a></li>
-          <li class="nav-item"><a class="nav-link" href="#activities">الأنشطة الدراسية</a></li>
-          <li class="nav-item"><a class="nav-link" href="#rules">الأنظمة والقوانين</a></li>
-          <li class="nav-item"><a class="nav-link" href="#location">موقع المجمع</a></li>
+          <li class="nav-item"><a class="nav-link" href="#results"><i class="fas fa-chart-line me-1"></i> المحصلات والنتائج</a></li>
+          <li class="nav-item"><a class="nav-link" href="#absence"><i class="fas fa-user-clock me-1"></i> غياب الطلاب</a></li>
+          <li class="nav-item"><a class="nav-link" href="#activities"><i class="fas fa-trophy me-1"></i> الأنشطة الدراسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="#rules"><i class="fas fa-gavel me-1"></i> الأنظمة والقوانين</a></li>
+          <li class="nav-item"><a class="nav-link" href="#location"><i class="fas fa-map-marker-alt me-1"></i> موقع المجمع</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- رأس الصفحة -->
-  <header class="bg-light text-center p-4 d-flex justify-content-between align-items-center">
-    <h1 class="m-0">مدارس عمران الاهلية</h1>
-    <img src="logo.png" alt="شعار المدرسة" id="schoolLogo">
+  <header class="text-center">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="fade-in">مدارس عمران الاهلية</h1>
+          <p class="lead mt-2">التميز في التعليم.. مستقبل مشرق لأبنائنا</p>
+        </div>
+        <div class="col-md-4">
+          <img src="logo.png" alt="شعار المدرسة" class="img-fluid fade-in">
+        </div>
+      </div>
+    </div>
   </header>
-<section id="about" style="background-color: #f8f9fa; padding: 40px 20px;">
-  <div class="container">
-    <h2>عن مدارس عمران الاهلية</h2>
-    <p>مدارس عمران الاهلية - مؤسسة تعليمية رائدة في محافظة عمران، تهدف إلى تقديم تعليم متميز وفق أعلى المعايير التعليمية. نحن نعمل على تطوير مهارات الطلاب علمياً وشخصياً.</p>
-    <div class="row mt-4">
-      <div class="col-md-4">
-        <h4>🏫 رؤيتنا</h4>
-        <p>التميز في تقديم التعليم النوعي الذي يواكب متطلبات العصر</p>
+
+  <!-- قسم عن المدرسة -->
+  <section id="about" class="fade-in">
+    <div class="container">
+      <h2>عن مدارس عمران الاهلية</h2>
+      <p class="text-center mb-4">مدارس عمران الاهلية - مؤسسة تعليمية رائدة في محافظة عمران، تهدف إلى تقديم تعليم متميز وفق أعلى المعايير التعليمية. نحن نعمل على تطوير مهارات الطلاب علمياً وشخصياً.</p>
+      <div class="row mt-4">
+        <div class="col-md-4 hover-lift">
+          <div class="p-3">
+            <i class="fas fa-eye fa-3x mb-3" style="color: var(--primary-color);"></i>
+            <h4>رؤيتنا</h4>
+            <p>التميز في تقديم التعليم النوعي الذي يواكب متطلبات العصر</p>
+          </div>
+        </div>
+        <div class="col-md-4 hover-lift">
+          <div class="p-3">
+            <i class="fas fa-bullseye fa-3x mb-3" style="color: var(--secondary-color);"></i>
+            <h4>رسالتنا</h4>
+            <p>تخريج طلاب متميزين دراسياً وأخلاقياً</p>
+          </div>
+        </div>
+        <div class="col-md-4 hover-lift">
+          <div class="p-3">
+            <i class="fas fa-star fa-3x mb-3" style="color: var(--accent-color);"></i>
+            <h4>قيمنا</h4>
+            <p>الجودة، الالتزام، الابتكار، العمل الجماعي</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h4>🎯 رسالتنا</h4>
-        <p>تخريج طلاب متميزين دراسياً وأخلاقياً</p>
+    </div>
+  </section>
+
+  <!-- صورة المدرسة -->
+  <section class="section-img text-center fade-in">
+    <div class="container">
+      <img src="school.gif" alt="صورة المدرسة المتحركة" class="img-fluid">
+    </div>
+  </section>
+
+  <!-- المحصلات والنتائج -->
+  <section id="results" class="fade-in">
+    <div class="container">
+      <h2><i class="fas fa-chart-line me-2"></i>المحصلات والنتائج</h2>
+      <p class="text-center mb-4">يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم.</p>
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الأول الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثاني الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثالث الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الرابع الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الخامس الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السادس الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السابع الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثامن الأساسي</a></div>
+        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">التاسع الأساسي</a></div>
+        <div class="col"><a href="results_grade1.html" class="btn btn-primary w-100">الأول الثانوي</a></div>
+        <div class="col"><a href="‏‏results_grade2.html" class="btn btn-primary w-100">الثاني الثانوي</a></div>
+        <div class="col"><a href="results_grade3.html" class="btn btn-primary w-100">الثالث الثانوي</a></div>
       </div>
-      <div class="col-md-4">
-        <h4>⭐ قيمنا</h4>
-        <p>الجودة، الالتزام، الابتكار، العمل الجماعي</p>
+    </div>
+  </section>
+
+  <!-- غياب الطلاب -->
+  <section id="absence" class="fade-in">
+    <div class="container">
+      <h2><i class="fas fa-user-clock me-2"></i>غياب الطلاب</h2>
+      <p class="text-center mb-4">يمكنك الاطلاع على عدد ايام الغياب وتاريخ الغياب للطالب من خلال هذا القسم.</p>
+      <div class="text-center">
+        <a href="absence.html" class="btn btn-primary me-3"><i class="fas fa-calendar-alt me-2"></i>متابعة غياب النصف الاول</a>
+        <a href="‏‏absence - 1.html" class="btn btn-primary"><i class="fas fa-calendar-check me-2"></i>متابعة الغياب النصف الثاني</a>
       </div>
     </div>
-  </div>
-</section>
-  <!-- صورة -->
-  <section class="section-img text-center">
-    <img src="school.gif" alt="صورة المدرسة المتحركة" id="schoolImage">
   </section>
 
-  <section id="results">
-    <h2>المحصلات والنتائج</h2>
-    <p>يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم.</p>
-    <div class="row row-cols-2 g-2">
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الاول الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثاني الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثالث الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الرابع الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الخامس الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السادس الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">السابع الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">الثامن الاساسي</a></div>
-      <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">التاسع الاساسي</a></div>
-      <div class="col"><a href="results_grade1.html" class="btn btn-primary w-100">الاول الثانوي</a></div>
-      <div class="col"><a href="‏‏results_grade2 .html" class="btn btn-primary w-100">الثاني الثانوي</a></div>
-      <div class="col"><a href="results_grade3.html" class="btn btn-primary w-100">الثالث الثانوي</a></div>
+  <!-- الأنشطة الدراسية -->
+  <section id="activities" class="fade-in">
+    <div class="container">
+      <h2><i class="fas fa-trophy me-2"></i>الأنشطة الدراسية</h2>
+      <p class="text-center mb-4">تعرف على الأنشطة والمسابقات التي تقيمها المدرسة لتعزيز مهارات الطلاب.</p>
+      <div class="text-center">
+        <a href="#" class="btn btn-warning"><i class="fas fa-eye me-2"></i>عرض الأنشطة</a>
+      </div>
     </div>
   </section>
 
-  <section id="absence">
-    <h2>غياب الطلاب</h2>
-    <p>يمكنك الاطلاع على عدد ايام الغياب وتاريخ الغياب للطالب من خلال هذا القسم.</p>
-    <a href="absence.html" class="btn btn-primary">متابعة غياب النصف الاول</a>
-    <a href="‏‏absence - 1.html" class="btn btn-primary">متابعة الغياب النصف الثاني</a>
-  </section>
-
-  <section id="activities">
-    <h2>الأنشطة الدراسية</h2>
-    <p>تعرف على الأنشطة والمسابقات التي تقيمها المدرسة لتعزيز مهارات الطلاب.</p>
-    <a href="#" class="btn btn-warning">عرض الأنشطة</a>
-  </section>
-
-  <section id="rules">
-    <h2>الأنظمة والقوانين</h2>
-    <p>راجع لوائح المدرسة والقوانين التنظيمية التي تضمن بيئة تعليمية سليمة.</p>
-    <a href="#" class="btn btn-danger" id="showRulesBtn">قراءة اللوائح</a>
-
-    <div id="rulesContent" style="display: none; margin-top: 20px;">
-      <ul>
-        <li>❖ الالتزام بالحضور اليومي وعدم التأخير عن الحصص الدراسية.</li>
-        <li>❖ احترام المعلمين والإداريين والزملاء في جميع الأوقات.</li>
-        <li>❖ الحفاظ على نظافة الصف والمرافق العامة داخل المجمع.</li>
-        <li>❖ يمنع استخدام الهاتف المحمول أثناء الدوام الدراسي.</li>
-        <li>❖ الالتزام بالزي المدرسي الرسمي وعدم التعديل عليه.</li>
-        <li>❖ يمنع الغش في الاختبارات ويعرض الطالب للمساءلة.</li>
-        <li>❖ المحافظة على الكتب والوسائل التعليمية من التلف أو الضياع.</li>
-        <li>❖ يمنع مغادرة المدرسة أثناء الدوام إلا بإذن خطي من الإدارة.</li>
-        <li>❖ المشاركة الإيجابية في الأنشطة المدرسية والفعاليات التربوية.</li>
-      </ul>
+  <!-- الأنظمة والقوانين -->
+  <section id="rules" class="fade-in">
+    <div class="container">
+      <h2><i class="fas fa-gavel me-2"></i>الأنظمة والقوانين</h2>
+      <p class="text-center mb-4">راجع لوائح المدرسة والقوانين التنظيمية التي تضمن بيئة تعليمية سليمة.</p>
+      <div class="text-center mb-4">
+        <a href="#" class="btn btn-danger" id="showRulesBtn"><i class="fas fa-scroll me-2"></i>قراءة اللوائح</a>
+      </div>
+      <div id="rulesContent" style="display: none;">
+        <ul>
+          <li>❖ الالتزام بالحضور اليومي وعدم التأخير عن الحصص الدراسية.</li>
+          <li>❖ احترام المعلمين والإداريين والزملاء في جميع الأوقات.</li>
+          <li>❖ الحفاظ على نظافة الصف والمرافق العامة داخل المجمع.</li>
+          <li>❖ يمنع استخدام الهاتف المحمول أثناء الدوام الدراسي.</li>
+          <li>❖ الالتزام بالزي المدرسي الرسمي وعدم التعديل عليه.</li>
+          <li>❖ يمنع الغش في الاختبارات ويعرض الطالب للمساءلة.</li>
+          <li>❖ المحافظة على الكتب والوسائل التعليمية من التلف أو الضياع.</li>
+          <li>❖ يمنع مغادرة المدرسة أثناء الدوام إلا بإذن خطي من الإدارة.</li>
+          <li>❖ المشاركة الإيجابية في الأنشطة المدرسية والفعاليات التربوية.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <section id="location">
-    <h2>موقع مدارس عمران الأهلية على الخريطة</h2>
-    <p>في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الأهلية من خلال خرائط Google.</p>
-
-    <div class="ratio ratio-16x9" style="position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden;">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" 
-        width="600" 
-        height="450" 
-        style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+  <!-- موقع المجمع -->
+  <section id="location" class="fade-in">
+    <div class="container">
+      <h2><i class="fas fa-map-marker-alt me-2"></i>موقع مدارس عمران الأهلية</h2>
+      <p class="text-center mb-4">في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الأهلية من خلال خرائط Google.</p>
+      <div class="ratio ratio-16x9">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
     </div>
   </section>
+
+  <!-- الفوتر -->
+  <footer class="fade-in">
+    <div class="container">
+      <p>© 2024 مدارس عمران الاهلية. جميع الحقوق محفوظة.</p>
+      <p>مدارس عمران الاهلية - التميز في التعليم منذ تأسيسها</p>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- باقي الكود JavaScript يبقى كما هو -->
   <script>
     // إدارة زر الإشعارات
     const notifyBtn = document.getElementById('notifyBtn');
@@ -341,19 +669,16 @@
 
     // التحقق مما إذا كان التطبيق مثبتًا بالفعل
     function checkIfAppIsInstalled() {
-      // الطريقة 1: التحقق من display-mode
       if (window.matchMedia('(display-mode: standalone)').matches) {
         console.log('التطبيق مثبت بالفعل (display-mode)');
         return true;
       }
       
-      // الطريقة 2: التحقق من وجود علامة في localStorage
       if (localStorage.getItem('appInstalled') === 'true') {
         console.log('التطبيق مثبت بالفعل (localStorage)');
         return true;
       }
       
-      // الطريقة 3: التحقق من أن المستخدم يستخدم تطبيق PWA
       if (window.navigator.standalone === true) {
         console.log('التطبيق مثبت بالفعل (navigator.standalone)');
         return true;
@@ -364,17 +689,14 @@
 
     // إظهار زر التثبيت بعد تحميل الصفحة
     window.addEventListener('load', () => {
-      // إذا كان التطبيق مثبتًا بالفعل، لا تظهر أي أزرار تثبيت
       if (checkIfAppIsInstalled()) {
         installBtn.style.display = 'none';
         installBanner.style.display = 'none';
         return;
       }
 
-      // إذا لم يكن مثبتًا، أظهر الأزرار بعد تأخير
       setTimeout(() => {
         installBtn.style.display = 'flex';
-        // إظهار الشريط العلوي بعد 5 ثوانٍ
         setTimeout(() => {
           if (!localStorage.getItem('bannerClosed')) {
             installBanner.style.display = 'block';
@@ -383,19 +705,16 @@
       }, 1000);
     });
 
-    // الاستماع لحدث beforeinstallprompt
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       
-      // التحقق مرة أخرى إذا كان التطبيق مثبتًا
       if (checkIfAppIsInstalled()) {
         installBtn.style.display = 'none';
         installBanner.style.display = 'none';
         return;
       }
       
-      // تثبيت مباشر عند النقر
       installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
           deferredPrompt.prompt();
@@ -405,14 +724,12 @@
             console.log('تم تثبيت التطبيق ✅');
             installBtn.style.display = 'none';
             installBanner.style.display = 'none';
-            // حفظ حالة التثبيت
             localStorage.setItem('appInstalled', 'true');
           }
           deferredPrompt = null;
         }
       });
       
-      // نفس الوظيفة للشريط العلوي
       installBannerBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
           deferredPrompt.prompt();
@@ -422,7 +739,6 @@
             console.log('تم تثبيت التطبيق ✅');
             installBtn.style.display = 'none';
             installBanner.style.display = 'none';
-            // حفظ حالة التثبيت
             localStorage.setItem('appInstalled', 'true');
           }
           deferredPrompt = null;
@@ -430,27 +746,22 @@
       });
     });
 
-    // حدث عندما يتم تثبيت التطبيق
     window.addEventListener('appinstalled', () => {
-      console.log('تم تثبيت التطبيق بالفعل');
+      console.log('تم التثبيت بالفعل');
       installBtn.style.display = 'none';
       installBanner.style.display = 'none';
-      // حفظ حالة التثبيت
       localStorage.setItem('appInstalled', 'true');
       
-      // إظهار رسالة تأكيد
       setTimeout(() => {
         alert('🎉 تم تثبيت التطبيق بنجاح! يمكنك الوصول إليه من شاشتك الرئيسية.');
       }, 1000);
     });
 
-    // إغلاق الشريط العلوي
     closeBanner.addEventListener('click', () => {
       installBanner.style.display = 'none';
       localStorage.setItem('bannerClosed', 'true');
     });
 
-    // إظهار/إخفاء القوانين
     const showRulesBtn = document.getElementById("showRulesBtn");
     const rulesContent = document.getElementById("rulesContent");
 
@@ -461,7 +772,6 @@
       });
     }
 
-    // التحقق الدوري إذا كان التطبيق يعمل في وضع PWA
     setInterval(() => {
       if (checkIfAppIsInstalled()) {
         installBtn.style.display = 'none';
@@ -469,7 +779,6 @@
       }
     }, 5000);
 
-    // تسجيل Service Worker للعمل بدون اتصال
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/amran/sw.js')
@@ -482,9 +791,5 @@
       });
     }
   </script>
-  <footer style="background-color: #004080; color: white; padding: 20px; text-align: center; margin-top: 40px;">
-  <p>© 2026 مدارس عمران الاهلية. جميع الحقوق محفوظة.</p>
-  <p>مدارس عمران الاهلية - التميز في التعليم منذ تأسيسها</p>
-</footer>
 </body>
 </html>
