@@ -609,7 +609,7 @@
         if (data.status !== "نجاح") {
           output.innerHTML = `
             <div class="alert-message">
-              <h3>⚠️ لم يتم العثور على النتيجة</h3>
+              <h3>⚠️ لم يتم العثور على النتيجة أو أن الطالب موقف</h3>
               <p>${data.message}</p>
               <p>يرجى التحقق من كود الطالب والمحاولة مرة أخرى</p>
             </div>
@@ -633,7 +633,7 @@
           "الاسم": data.بيانات_الطالب?.الاسم || "غير متوفر",
           "الصف": data.بيانات_الطالب?.الصف || "غير متوفر",
           "الشعبة": data.بيانات_الطالب?.الشعبة || "غير متوفر",
-          "الكود": currentStudentCode
+         
         };
         
         for (const [key, value] of Object.entries(studentFields)) {
@@ -773,9 +773,9 @@
             <thead>
               <tr>
                 <th>المادة</th>
-                <th>مواظبة</th>
                 <th>واجبات</th>
                 <th>شفهي</th>
+                <th>مواظبة</th>
                 <th>تحريري</th>
                 <th>المجموع</th>
               </tr>
@@ -789,9 +789,9 @@
         
         tableRows += `<tr>
           <td class="subject-name">${subject}</td>
-          <td class="${getGradeClass(grades.مواظبة, 10)}">${grades.مواظبة || "0"}</td>
           <td class="${getGradeClass(grades.الواجبات, 10)}">${grades.الواجبات || "0"}</td>
           <td class="${getGradeClass(grades.شفهي, 15)}">${grades.شفهي || "0"}</td>
+           <td class="${getGradeClass(grades.مواظبة, 10)}">${grades.مواظبة || "0"}</td>
           <td class="${getGradeClass(grades.تحريري, 15)}">${grades.تحريري || "0"}</td>
           <td class="${gradeClass}">${total}</td>
         </tr>`;
