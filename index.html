@@ -74,6 +74,10 @@
       --dark-text: #333;
       --shadow: 0 4px 12px rgba(0,0,0,0.1);
       --gradient: linear-gradient(135deg, #004080, #2196F3);
+      --center-gradient: linear-gradient(135deg, #004080, #0d6efd);
+      --branch-gradient: linear-gradient(135deg, #198754, #20c997);
+      --center-color: #004080;
+      --branch-color: #198754;
     }
     
     body {
@@ -81,6 +85,7 @@
       background: linear-gradient(135deg, #f9f9f9 0%, #e8f4f8 100%);
       color: var(--dark-text);
       line-height: 1.6;
+      position: relative;
     }
     
     /* تحسين الشريط العلوي */
@@ -93,6 +98,10 @@
     .navbar-brand {
       font-weight: bold;
       font-size: 1.4rem;
+      background: linear-gradient(135deg, #fff 0%, #e6f7ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
     .nav-link {
@@ -110,24 +119,40 @@
     
     /* تحسين الرأس */
     header {
-      background: var(--gradient);
+      background: linear-gradient(135deg, var(--primary-color), #0066cc);
       color: white;
       padding: 30px 20px;
       border-radius: 0 0 30px 30px;
       box-shadow: var(--shadow);
       margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+      background-size: cover;
     }
     
     header h1 {
       font-weight: bold;
       font-size: 2.2rem;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      position: relative;
     }
     
     header img {
       height: 80px;
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      position: relative;
+      border: 3px solid rgba(255,255,255,0.3);
     }
     
     /* تحسين الأقسام */
@@ -139,6 +164,12 @@
       border-radius: 20px;
       box-shadow: var(--shadow);
       border: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    
+    section:hover {
+      transform: translateY(-5px);
     }
     
     section h2 {
@@ -171,6 +202,24 @@
       transition: all 0.3s ease;
       border: none;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.1);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    
+    .btn:hover::before {
+      transform: translateX(0);
     }
     
     .btn-primary {
@@ -182,7 +231,7 @@
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
     
-    /* تحسين شبكة الصفوف */
+    /* تحسين شبكة الصفوف - أزرار خاصة بالمركز والفرع */
     .row-cols-2 .col {
       margin-bottom: 15px;
     }
@@ -192,6 +241,53 @@
       padding: 15px;
       font-size: 1rem;
       border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* أزرار المركز */
+    .btn-center {
+      background: var(--center-gradient);
+      border-left: 4px solid #0d6efd;
+      box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+    }
+    
+    .btn-center::after {
+      content: '🏛️';
+      font-size: 1.2rem;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .btn-center:hover {
+      box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+    }
+    
+    /* أزرار الفرع */
+    .btn-branch {
+      background: var(--branch-gradient);
+      border-left: 4px solid #20c997;
+      box-shadow: 0 4px 15px rgba(32, 201, 151, 0.2);
+    }
+    
+    .btn-branch::after {
+      content: '🌿';
+      font-size: 1.2rem;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .btn-branch:hover {
+      box-shadow: 0 6px 20px rgba(32, 201, 151, 0.3);
     }
     
     /* قسم عن المدرسة */
@@ -203,6 +299,11 @@
     #about .col-md-4 {
       text-align: center;
       padding: 25px 15px;
+      border-radius: 15px;
+      background: white;
+      margin: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
     }
     
     #about h4 {
@@ -213,7 +314,7 @@
     
     #about .col-md-4:hover {
       transform: translateY(-5px);
-      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     }
     
     /* تحسين الصورة */
@@ -223,14 +324,29 @@
       border-radius: 20px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.15);
       border: 3px solid var(--primary-color);
+      transition: transform 0.5s ease;
+    }
+    
+    .section-img img:hover {
+      transform: scale(1.02);
     }
     
     /* تحسين القوانين */
     #rulesContent {
-      background: var(--light-bg);
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
       padding: 25px;
       border-radius: 15px;
       border-right: 4px solid var(--accent-color);
+      position: relative;
+    }
+    
+    #rulesContent::before {
+      content: '📜';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 1.5rem;
+      opacity: 0.2;
     }
     
     #rulesContent ul {
@@ -239,9 +355,19 @@
     }
     
     #rulesContent li {
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #ddd;
       font-size: 1.05rem;
+      position: relative;
+      padding-right: 30px;
+    }
+    
+    #rulesContent li::before {
+      content: '✓';
+      position: absolute;
+      right: 0;
+      color: var(--secondary-color);
+      font-weight: bold;
     }
     
     #rulesContent li:last-child {
@@ -253,6 +379,7 @@
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border: 2px solid var(--accent-color);
     }
     
     /* أزرار التثبيت والإشعارات */
@@ -271,11 +398,19 @@
       box-shadow: 0 4px 15px rgba(255,193,7,0.4);
       cursor: pointer;
       transition: all 0.3s ease;
+      animation: pulse-bell 2s infinite;
+    }
+    
+    @keyframes pulse-bell {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     
     #notifyBtn:hover {
       transform: scale(1.1);
       box-shadow: 0 6px 20px rgba(255,193,7,0.6);
+      animation: none;
     }
     
     #installBtn {
@@ -324,6 +459,12 @@
       z-index: 9998;
       box-shadow: 0 2px 15px rgba(0,0,0,0.2);
       display: none;
+      animation: slideDown 0.5s ease;
+    }
+    
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
     }
     
     #installBanner button {
@@ -352,17 +493,31 @@
     
     /* الفوتر */
     footer {
-      background: var(--gradient);
+      background: linear-gradient(135deg, var(--primary-color), #00264d);
       color: white;
       padding: 30px 20px;
       text-align: center;
       margin-top: 50px;
       border-radius: 30px 30px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,100 L100,0 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+      background-size: cover;
     }
     
     footer p {
       margin: 5px 0;
       opacity: 0.9;
+      position: relative;
     }
     
     /* تحسينات للهواتف */
@@ -418,6 +573,11 @@
       #about .col-md-4 {
         margin-bottom: 20px;
       }
+      
+      .row-cols-2 .btn::after {
+        font-size: 1rem;
+        left: 10px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -450,6 +610,51 @@
     
     .hover-lift:hover {
       transform: translateY(-5px);
+    }
+    
+    /* تلميحات للأزرار */
+    .btn-center[title]:hover::before,
+    .btn-branch[title]:hover::before {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 1000;
+    }
+    
+    /* شريط التمييز بين القسمين */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .section-badge {
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .badge-center {
+      background: linear-gradient(135deg, var(--center-color), #0d6efd);
+      color: white;
+    }
+    
+    .badge-branch {
+      background: linear-gradient(135deg, var(--branch-color), #20c997);
+      color: white;
     }
   </style>
 </head>
@@ -496,6 +701,10 @@
         <div class="col-md-8">
           <h1 class="fade-in">مدارس عمران الاهلية</h1>
           <p class="lead mt-2">التميز في التعليم.. مستقبل مشرق لأبنائنا</p>
+          <div class="mt-3">
+            <span class="section-badge badge-center me-2"><i class="fas fa-building"></i> المركز الرئيسي</span>
+            <span class="section-badge badge-branch"><i class="fas fa-code-branch"></i> فرع المدرسة</span>
+          </div>
         </div>
         <div class="col-md-4">
           <img src="logo.png" alt="شعار المدرسة" class="img-fluid fade-in">
@@ -545,30 +754,57 @@
   <!-- المحصلات والنتائج -->
   <section id="results" class="fade-in">
     <div class="container">
-      <h2><i class="fas fa-chart-line me-2"></i>المحصلات والنتائج</h2>
+      <div class="section-header">
+        <h2><i class="fas fa-chart-line me-2"></i>المحصلات والنتائج</h2>
+        <div>
+          <span class="section-badge badge-center me-2"><i class="fas fa-building"></i> المركز</span>
+          <span class="section-badge badge-branch"><i class="fas fa-code-branch"></i> الفرع</span>
+        </div>
+      </div>
       <p class="text-center mb-4">يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم.</p>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-        <div class="col"><a href="‏‏results_grade4.html" class="btn btn-primary w-100">نتائج ومحصلاج مدارس عمران الاهلية -المركز </a></div>
-        <div class="col"><a href="‏‏‏‏resultsgrade2.html" class="btn btn-primary w-100">نتائج ومحصلاج مدارس عمران الاهلية -الفرع</a></div>
+        <div class="col">
+          <a href="‏‏results_grade4.html" class="btn btn-center w-100" title="نتائج ومحصلات المركز">
+            نتائج ومحصلات المركز
+          </a>
+        </div>
+        <div class="col">
+          <a href="‏‏‏‏resultsgrade2.html" class="btn btn-branch w-100" title="نتائج ومحصلات الفرع">
+            نتائج ومحصلات الفرع
+          </a>
+        </div>
         
-        <div class="col"><a href="results_grade1.html" class="btn btn-primary w-100">نتائج طلاب الثانوية -المركز</a></div>
-        
-       
+        <div class="col">
+          <a href="results_grade1.html" class="btn btn-center w-100" title="نتائج طلاب الثانوية - المركز">
+            نتائج الثانوية - المركز
+          </a>
+        </div>
       </div>
     </div>
   </section>
-   <!-- المحصلات والنتائج -->
-  <section id="results" class="fade-in">
+   
+   <!-- الواجبات المنزلية -->
+  <section id="homework" class="fade-in">
     <div class="container">
-      <h2><i class="fas fa-chart-line me-2"></i>الواجبات المنزلية</h2>
+      <div class="section-header">
+        <h2><i class="fas fa-book me-2"></i>الواجبات المنزلية</h2>
+        <div>
+          <span class="section-badge badge-center me-2"><i class="fas fa-building"></i> المركز</span>
+          <span class="section-badge badge-branch"><i class="fas fa-code-branch"></i> الفرع</span>
+        </div>
+      </div>
       <p class="text-center mb-4">يمكنك الاطلاع على الواجبات المنزلية للطالب من خلال هذا القسم.</p>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-        <div class="col"><a href="homework.html" class="btn btn-primary w-100">الواجبات المنزلية مدارس عمران الاهلية -المركز </a></div>
-        <div class="col"><a href="homework1.html" class="btn btn-primary w-100">الواجبات المنزلية مدارس عمران الاهلية -الفرع</a></div>
-        
-      
-        
-       
+        <div class="col">
+          <a href="homework.html" class="btn btn-center w-100" title="واجبات منزلية - المركز">
+            الواجبات المنزلية - المركز
+          </a>
+        </div>
+        <div class="col">
+          <a href="homework1.html" class="btn btn-branch w-100" title="واجبات منزلية - الفرع">
+            الواجبات المنزلية - الفرع
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -642,6 +878,10 @@
     <div class="container">
       <p>© 2024 مدارس عمران الاهلية. جميع الحقوق محفوظة.</p>
       <p>مدارس عمران الاهلية - التميز في التعليم منذ تأسيسها</p>
+      <div class="mt-3">
+        <span class="section-badge badge-center me-2"><i class="fas fa-building"></i> المركز الرئيسي</span>
+        <span class="section-badge badge-branch"><i class="fas fa-code-branch"></i> فرع المدرسة</span>
+      </div>
     </div>
   </footer>
 
@@ -883,6 +1123,27 @@
 
     // يمكنك استدعاء هذه الدالة من console للمتصفح للتحقق
     window.checkInstallStatus = checkInstallStatus;
+    
+    // إضافة تأثيرات تفاعلية للعناصر عند التمرير
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+      });
+    });
 </script>
 </body>
 </html>
