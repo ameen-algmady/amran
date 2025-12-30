@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الواجبات المنزلية - المدرسة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap&subset=arabic" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px 0;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .header-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .header-btn:hover {
+            background: white;
+            color: #2a5298;
+        }
+        
+        .grades-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .grade-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .grade-section:hover {
+            transform: translateY(-3px);
+        }
+        
+        .section-title {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f5ff;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #2a5298;
+        }
+        
+        .grades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        
+        .grade-card {
+            background: linear-gradient(135deg, #f8fafd 0%, #f0f5ff 100%);
+            border-radius: 10px;
+            padding: 20px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #e8efff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .grade-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #2a5298;
+            transition: width 0.3s;
+        }
+        
+        .grade-card:hover::before {
+            width: 100%;
+            opacity: 0.1;
+        }
+        
+        .grade-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(42, 82, 152, 0.15);
+            border-color: #2a5298;
+        }
+        
+        .grade-card i {
+            font-size: 2.2rem;
+            color: #2a5298;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .grade-card h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .grade-card .section {
+            font-size: 0.9rem;
+            color: white;
+            background: #2a5298;
+            padding: 4px 12px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .week-badge {
+            background: #ff9800;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-right: 5px;
+        }
+        
+        .homework-table {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+            overflow-x: auto;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .week-info {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            border-left: 5px solid #4CAF50;
+            box-shadow: 0 3px 10px rgba(76, 175, 80, 0.1);
+        }
+        
+        .week-title {
+            color: #1e3c72;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .week-dates {
+            font-size: 1.2rem;
+            color: #2e7d32;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .week-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .homework-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .homework-title {
+            color: #1e3c72;
+            font-size: 1.5rem;
+        }
+        
+        .homework-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .back-btn {
+            background: #f0f5ff;
+            color: #2a5298;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: #2a5298;
+            color: white;
+        }
+        
+        .refresh-btn {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            background: #2e7d32;
+            color: white;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        th {
+            background-color: #2a5298;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background-color: #f9fbff;
+        }
+        
+        .day-header {
+            background-color: #f0f5ff;
+            font-weight: 700;
+            color: #1e3c72;
+            text-align: right;
+            padding: 10px 15px;
+            width: 15%;
+        }
+        
+        .subject-item {
+            background-color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            text-align: right;
+            border-right: 4px solid #2a5298;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        
+        .subject-item:hover {
+            transform: translateX(-5px);
+        }
+        
+        .subject-name {
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .homework-text {
+            color: #333;
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+        
+        .no-homework {
+            color: #888;
+            font-style: italic;
+            padding: 20px;
+            text-align: center;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+        
+        .current-day {
+            background-color: #e8f5e9 !important;
+            border-right: 4px solid #4CAF50 !important;
+        }
+        
+        .today-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-right: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #2a5298;
+            font-size: 1.2rem;
+        }
+        
+        .loading i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .data-info {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            text-align: right;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .week-filter-info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #bbdefb;
+            text-align: right;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .grades-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .homework-table {
+                padding: 15px;
+            }
+            
+            .week-info {
+                padding: 15px;
+            }
+            
+            .week-title {
+                font-size: 1.3rem;
+            }
+            
+            .week-dates {
+                font-size: 1rem;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+            
+            th, td {
+                padding: 10px 5px;
+            }
+            
+            .homework-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .homework-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .back-btn, .refresh-btn {
+                width: 48%;
+                justify-content: center;
+            }
+            
+            .grade-section {
+                padding: 15px;
+            }
+            
+            .day-header {
+                width: 20%;
+            }
+            
+            .header-buttons {
+                width: 100%;
+            }
+            
+            .header-btn {
+                flex: 1;
+                min-width: 140px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grade-card {
+                padding: 15px 10px;
+            }
+            
+            .grade-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .subject-item {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .homework-title {
+                font-size: 1.3rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-book-open"></i> نظام الواجبات المنزلية</h1>
+                <p>اختر الصف الدراسي والشعبة لعرض واجبات الأسبوع الحالي</p>
+                <div class="header-buttons">
+                    <button class="header-btn" onclick="testConnection()">
+                        <i class="fas fa-wifi"></i> اختبار الاتصال
+                    </button>
+                    <button class="header-btn" onclick="showInstructions()">
+                        <i class="fas fa-question-circle"></i> التعليمات
+                    </button>
+                    <button class="header-btn" onclick="showCurrentWeekInfo()">
+                        <i class="fas fa-calendar"></i> عرض الأسبوع
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div id="message" class="message"></div>
+        
+        <div id="grades-container" class="grades-container">
+            <!-- سيتم ملئها بواسطة الجافاسكريبت -->
+        </div>
+        
+        <div id="homework-container" class="homework-table">
+            <!-- سيتم ملئها بواسطة الجافاسكريبت -->
+        </div>
+        
+        <div id="loading" class="loading" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>جاري تحميل واجبات الأسبوع الحالي...</p>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">قد يستغرق بضع ثوانٍ</p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p><i class="fas fa-copyright"></i> جميع الحقوق محفوظة 2024 - نظام الواجبات المنزلية</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">
+                <i class="fas fa-info-circle"></i> تم التطوير باستخدام Google Sheets و Google Apps Script
+            </p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">
+                آخر تحديث: <span id="last-update">اليوم</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // إعدادات النظام
+        // ============================================
+        
+        const STUDENT_API_URL = 'https://script.google.com/macros/s/AKfycbz-cl7xGmFvB_1N1wjVplpbHVSxfFWlvfmSO-Afy_7v0jK5dJtsqo-nhDNBGbdiUmCiFw/exec';
+        
+        // أيام الأسبوع الدراسية بالترتيب (من السبت إلى الأربعاء فقط - 5 أيام دراسية)
+        const DAYS = ["السبت", "الأحد", "الإثنين", "الثلاثاء", "الأربعاء"];
+        
+        // تعريف الفصول والشعب
+        const SCHOOL_GRADES = [
+            {
+                title: "الصفوف الابتدائية",
+                icon: "fas fa-child",
+                gradeLevel: "primary",
+                grades: [
+                    { 
+                        id: "الأول", 
+                        name: "الصف الأول الابتدائي", 
+                        sections: ["جميع الشعب"],
+                        icon: "fas fa-child",
+                        color: "#4CAF50"
+                    },
+                    { 
+                        id: "الثاني", 
+                        name: "الصف الثاني الابتدائي", 
+                        sections: ["جميع الشعب"],
+                        icon: "fas fa-child",
+                        color: "#2196F3"
+                    },
+                    { 
+                        id: "الثالث", 
+                        name: "الصف الثالث الابتدائي", 
+                        sections: ["جميع الشعب"],
+                        icon: "fas fa-child",
+                        color: "#FF9800"
+                    }
+                ]
+            },
+            {
+                title: "الصفوف الأساسية (4-6)",
+                icon: "fas fa-graduation-cap",
+                gradeLevel: "intermediate",
+                grades: [
+                    { 
+                        id: "الرابع", 
+                        name: "الصف الرابع الأساسي", 
+                        sections: ["أ", "ب", "ج"],
+                        icon: "fas fa-user-graduate",
+                        color: "#9C27B0"
+                    },
+                    { 
+                        id: "الخامس", 
+                        name: "الصف الخامس الأساسي", 
+                        sections: ["أ", "ب", "ج"],
+                        icon: "fas fa-user-graduate",
+                        color: "#3F51B5"
+                    },
+                    { 
+                        id: "السادس", 
+                        name: "الصف السادس الأساسي", 
+                        sections: ["أ", "ب", "ج"],
+                        icon: "fas fa-user-graduate",
+                        color: "#00BCD4"
+                    }
+                ]
+            },
+            {
+                title: "الصفوف الأساسية (7-9)",
+                icon: "fas fa-graduation-cap",
+                gradeLevel: "upper",
+                grades: [
+                    { 
+                        id: "السابع", 
+                        name: "الصف السابع الأساسي", 
+                        sections: ["أ", "ب", "ج"],
+                        icon: "fas fa-user-graduate",
+                        color: "#FF5722"
+                    },
+                    { 
+                        id: "الثامن", 
+                        name: "الصف الثامن الأساسي", 
+                        sections: ["أ", "ب", "ج"],
+                        icon: "fas fa-user-graduate",
+                        color: "#795548"
+                    },
+                    { 
+                        id: "التاسع", 
+                        name: "الصف التاسع الأساسي", 
+                        sections: ["أ", "ب", "ج"],
+                        icon: "fas fa-user-graduate",
+                        color: "#607D8B"
+                    }
+                ]
+            }
+        ];
+        
+        // متغيرات النظام
+        let isLoading = false;
+        let currentGrade = '';
+        let currentSection = '';
+        
+        // ============================================
+        // دوال التاريخ
+        // ============================================
+        
+        // دالة للحصول على تاريخ السبت الحالي (بداية الأسبوع)
+        function getCurrentSaturdayDate() {
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0=الأحد, 1=الإثنين, ..., 6=السبت
+            
+            // حساب الفرق للرجوع إلى السبت
+            let daysToSubtract = 0;
+            if (dayOfWeek === 0) { // الأحد
+                daysToSubtract = 1;
+            } else if (dayOfWeek === 6) { // السبت
+                daysToSubtract = 0;
+            } else {
+                daysToSubtract = dayOfWeek + 1;
+            }
+            
+            const saturday = new Date(today);
+            saturday.setDate(today.getDate() - daysToSubtract);
+            saturday.setHours(0, 0, 0, 0);
+            
+            return saturday;
+        }
+        
+        // تنسيق التاريخ بصيغة dd/mm/yyyy
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        
+        // الحصول على معلومات الأسبوع الحالي
+        function getCurrentWeekInfo() {
+            const saturday = getCurrentSaturdayDate();
+            const wednesday = new Date(saturday);
+            wednesday.setDate(saturday.getDate() + 4);
+            
+            return {
+                saturday: saturday,
+                wednesday: wednesday,
+                saturdayFormatted: formatDate(saturday),
+                wednesdayFormatted: formatDate(wednesday),
+                weekRange: `${formatDate(saturday)} - ${formatDate(wednesday)}`,
+                saturdayDisplay: formatDate(saturday)
+            };
+        }
+        
+        // الحصول على معلومات اليوم الحالي
+        function getTodayInfo() {
+            const today = new Date();
+            const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+            const dayName = days[today.getDay()];
+            
+            return {
+                date: formatDate(today),
+                dayName: dayName,
+                dateObj: today
+            };
+        }
+        
+        // ============================================
+        // دوال العرض
+        // ============================================
+        
+        // دالة لعرض الرسائل
+        function showMessage(text, type = 'info', duration = 5000) {
+            const messageEl = document.getElementById('message');
+            messageEl.innerHTML = text;
+            messageEl.className = `message ${type}`;
+            messageEl.style.display = 'block';
+            
+            if (duration > 0 && type !== 'error') {
+                setTimeout(() => {
+                    messageEl.style.display = 'none';
+                }, duration);
+            }
+        }
+        
+        // عرض الصفوف الدراسية
+        function renderGrades() {
+            const container = document.getElementById('grades-container');
+            container.innerHTML = '';
+            
+            const weekInfo = getCurrentWeekInfo();
+            const todayInfo = getTodayInfo();
+            
+            // عرض معلومات الأسبوع الحالي
+            const weekInfoHTML = `
+                <div class="grade-section">
+                    <div class="section-title">
+                        <i class="fas fa-calendar-week"></i>
+                        الأسبوع الدراسي الحالي
+                    </div>
+                    <div class="week-info">
+                        <div class="week-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            أسبوع الدراسة
+                        </div>
+                        <div class="week-dates">
+                            ${weekInfo.weekRange}
+                        </div>
+                        <div class="week-subtitle">
+                            ${todayInfo.dayName} - ${todayInfo.date}
+                        </div>
+                        <div class="week-subtitle" style="margin-top: 10px; font-size: 0.9rem; color: #2a5298;">
+                            <i class="fas fa-filter"></i> يتم البحث بالمطابقة الثلاثية: 
+                            الصف + الشعبة + تاريخ السبت (${weekInfo.saturdayDisplay})
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = weekInfoHTML;
+            
+            // عرض جميع الأقسام الدراسية
+            SCHOOL_GRADES.forEach(section => {
+                const sectionDiv = createGradeSection(section);
+                container.appendChild(sectionDiv);
+            });
+        }
+        
+        // إنشاء قسم للصفوف
+        function createGradeSection(sectionData) {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'grade-section';
+            
+            sectionDiv.innerHTML = `
+                <div class="section-title">
+                    <i class="${sectionData.icon}"></i>
+                    ${sectionData.title}
+                </div>
+                <div class="grades-grid">
+                    ${sectionData.grades.map(grade => 
+                        grade.sections.map(section => `
+                            <div class="grade-card" 
+                                 data-grade="${grade.id}" 
+                                 data-section="${section}"
+                                 style="border-color: ${grade.color};">
+                                <i class="${grade.icon}" style="color: ${grade.color};"></i>
+                                <h3>${grade.name}</h3>
+                                <div class="section" style="background: ${grade.color}">
+                                    ${section === "جميع الشعب" ? section : `الشعبة ${section}`}
+                                    <span class="week-badge">الأسبوع الحالي</span>
+                                </div>
+                            </div>
+                        `).join('')
+                    ).join('')}
+                </div>
+            `;
+            
+            // إضافة مستمعي الأحداث لبطاقات الصفوف
+            sectionDiv.querySelectorAll('.grade-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const grade = this.dataset.grade;
+                    const section = this.dataset.section;
+                    const gradeName = `${getGradeFullName(grade)} - ${section === "جميع الشعب" ? section : `الشعبة ${section}`}`;
+                    
+                    currentGrade = grade;
+                    currentSection = section;
+                    
+                    loadHomeworkTripleMatch(grade, section, gradeName);
+                });
+            });
+            
+            return sectionDiv;
+        }
+        
+        // ============================================
+        // دوال جلب البيانات (المطابقة الثلاثية)
+        // ============================================
+        
+        // دالة لجلب الواجبات بالمطابقة الثلاثية
+        async function loadHomeworkTripleMatch(grade, section, gradeName) {
+            if (isLoading) return;
+            
+            isLoading = true;
+            showLoading(true);
+            document.getElementById('grades-container').style.display = 'none';
+            document.getElementById('homework-container').style.display = 'none';
+            document.getElementById('message').style.display = 'none';
+            
+            console.log(`جاري تحميل واجبات ${gradeName} بالمطابقة الثلاثية`);
+            
+            try {
+                const weekInfo = getCurrentWeekInfo();
+                const saturdayDate = weekInfo.saturdayFormatted;
+                
+                console.log('معلمات البحث:', {
+                    grade,
+                    section,
+                    saturdayDate,
+                    weekRange: weekInfo.weekRange
+                });
+                
+                const data = await fetchHomeworkTripleMatch(grade, section, saturdayDate);
+                handleHomeworkResponse(data, grade, section, gradeName, weekInfo);
+                
+            } catch (error) {
+                console.error('فشل جلب البيانات:', error);
+                showMessage(
+                    `❌ فشل في تحميل الواجبات<br>
+                     <small>${error.message || 'تحقق من اتصال الإنترنت'}</small>`, 
+                    'error'
+                );
+                showGradesList();
+            } finally {
+                isLoading = false;
+                showLoading(false);
+            }
+        }
+        
+        // دالة لجلب البيانات من API
+        function fetchHomeworkTripleMatch(grade, section, saturdayDate) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'hw_' + Math.random().toString(36).substr(2, 9);
+                const timeoutId = setTimeout(() => {
+                    cleanup();
+                    reject(new Error('انتهت مهلة الاتصال (15 ثانية)'));
+                }, 15000);
+                
+                function cleanup() {
+                    clearTimeout(timeoutId);
+                    delete window[callbackName];
+                    const script = document.getElementById(`script_${callbackName}`);
+                    if (script && script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+                }
+                
+                window[callbackName] = function(data) {
+                    cleanup();
+                    resolve(data);
+                };
+                
+                // بناء رابط API مع المعلمات الثلاثة
+                const url = `${STUDENT_API_URL}?action=getHomework&grade=${encodeURIComponent(grade)}&section=${encodeURIComponent(section)}&saturdayDate=${encodeURIComponent(saturdayDate)}&callback=${callbackName}&t=${Date.now()}`;
+                
+                console.log('رابط API:', url);
+                
+                const script = document.createElement('script');
+                script.id = `script_${callbackName}`;
+                script.src = url;
+                
+                script.onerror = function() {
+                    cleanup();
+                    reject(new Error('فشل تحميل السكريبت - تحقق من رابط API'));
+                };
+                
+                document.body.appendChild(script);
+            });
+        }
+        
+        // معالجة استجابة البيانات
+        function handleHomeworkResponse(data, grade, section, gradeName, weekInfo) {
+            console.log('البيانات المستلمة من السيرفر:', data);
+            
+            if (!data) {
+                showMessage('❌ لم يتم استقبال أي بيانات من السيرفر', 'error');
+                showGradesList();
+                return;
+            }
+            
+            if (data.error || data.success === false) {
+                showMessage(`❌ خطأ: ${data.error || data.message || 'حدث خطأ غير معروف'}`, 'error');
+                showGradesList();
+                return;
+            }
+            
+            let homeworkData = data.homework || {};
+            
+            if (data.exists === false || !homeworkData) {
+                let message = `📭 لا توجد واجبات مسجلة لـ ${gradeName} للأسبوع الحالي`;
+                message += `<br><small>تم البحث بالمطابقة على: الصف + الشعبة + تاريخ السبت (${weekInfo.saturdayDisplay})</small>`;
+                
+                if (data.stats && data.stats.totalRows > 0) {
+                    message += `<br><small>تم فحص ${data.stats.totalRows} صف في قاعدة البيانات</small>`;
+                }
+                
+                showMessage(message, 'info');
+                showHomeworkTable(grade, section, gradeName, homeworkData, weekInfo, data);
+                return;
+            }
+            
+            const totalHomework = countTotalHomework(homeworkData);
+            showMessage(`✅ تم تحميل ${totalHomework} واجب لـ ${gradeName} للأسبوع الحالي`, 'success', 3000);
+            showHomeworkTable(grade, section, gradeName, homeworkData, weekInfo, data);
+        }
+        
+        // ============================================
+        // دوال عرض الجدول
+        // ============================================
+        
+        // عرض جدول الواجبات
+        function showHomeworkTable(grade, section, gradeName, homeworkData, weekInfo, serverData) {
+            const container = document.getElementById('homework-container');
+            const todayInfo = getTodayInfo();
+            
+            let html = `
+                <div class="week-info">
+                    <div class="week-title">
+                        <i class="fas fa-calendar-week"></i>
+                        الأسبوع الدراسي الحالي
+                        <span class="today-badge">${todayInfo.dayName}</span>
+                    </div>
+                    <div class="week-dates">
+                        ${weekInfo.weekRange}
+                    </div>
+                    <div class="week-subtitle">
+                        واجبات ${gradeName}
+                    </div>
+                    <div class="week-subtitle" style="margin-top: 10px; font-size: 0.9rem; color: #2a5298;">
+                        <i class="fas fa-filter"></i> تمت الفلترة بالمطابقة الثلاثية
+                    </div>
+                </div>
+                
+                <div class="homework-header">
+                    <h2 class="homework-title">
+                        <i class="fas fa-tasks"></i>
+                        واجبات الأسبوع الحالي
+                    </h2>
+                    <div class="homework-actions">
+                        <button class="refresh-btn" onclick="refreshHomework()">
+                            <i class="fas fa-sync-alt"></i> تحديث
+                        </button>
+                        <button class="back-btn" onclick="showGradesList()">
+                            <i class="fas fa-arrow-right"></i> العودة
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // إضافة معلومات المطابقة
+            if (serverData.matchDetails && serverData.matchDetails.length > 0) {
+                html += `
+                    <div class="week-filter-info">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>تم العثور على ${serverData.matchDetails.length} صف مطابق</strong><br>
+                            <small>تمت المطابقة على: الصف (${grade}) + الشعبة (${section}) + تاريخ السبت (${weekInfo.saturdayDisplay})</small>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // إحصاءات الواجبات
+            const stats = calculateHomeworkStats(homeworkData);
+            
+            if (stats.totalHomework > 0) {
+                html += `
+                    <div class="data-info">
+                        <i class="fas fa-chart-bar"></i>
+                        <div>
+                            <strong>إحصائيات الواجبات لهذا الأسبوع:</strong><br>
+                            ${stats.totalSubjects} مادة • ${stats.totalHomework} واجب • ${stats.daysWithHomework} يوم
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (stats.totalHomework === 0) {
+                html += createNoHomeworkMessage(gradeName, weekInfo, serverData);
+            } else {
+                html += createHomeworkTable(homeworkData, weekInfo, todayInfo);
+            }
+            
+            container.innerHTML = html;
+            container.style.display = 'block';
+            
+            // تحديث وقت آخر تحديث
+            document.getElementById('last-update').textContent = new Date().toLocaleString('ar-SA');
+        }
+        
+        // حساب إحصائيات الواجبات
+        function calculateHomeworkStats(homeworkData) {
+            let totalSubjects = 0;
+            let totalHomework = 0;
+            let daysWithHomework = 0;
+            const subjectsSet = new Set();
+            
+            DAYS.forEach(day => {
+                const dayData = homeworkData[day] || [];
+                if (dayData.length > 0) {
+                    daysWithHomework++;
+                    dayData.forEach(item => {
+                        totalHomework++;
+                        if (item.subject) subjectsSet.add(item.subject);
+                    });
+                }
+            });
+            
+            totalSubjects = subjectsSet.size;
+            
+            return { totalSubjects, totalHomework, daysWithHomework };
+        }
+        
+        // إنشاء رسالة عدم وجود واجبات
+        function createNoHomeworkMessage(gradeName, weekInfo, serverData) {
+            let details = '';
+            
+            if (serverData.stats) {
+                details = `<p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-search"></i> 
+                    تم فحص ${serverData.stats.totalRows} صف في قاعدة البيانات
+                </p>`;
+            }
+            
+            return `
+                <div class="no-homework">
+                    <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 20px; color: #ccc;"></i>
+                    <h3>لا توجد واجبات لهذا الأسبوع</h3>
+                    <p>لم يتم إدخال واجبات لـ ${gradeName} للأسبوع الحالي.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                        <i class="fas fa-calendar-alt"></i> 
+                        أسبوع الدراسة: ${weekInfo.weekRange}
+                    </p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                        <i class="fas fa-filter"></i> 
+                        تم البحث بالمطابقة الثلاثية
+                    </p>
+                    ${details}
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #888;">
+                        <i class="fas fa-lightbulb"></i> 
+                        يمكن للمعلمين إضافة الواجبات عبر رابط النظام الخاص بهم
+                    </p>
+                </div>
+            `;
+        }
+        
+        // إنشاء جدول الواجبات
+        function createHomeworkTable(homeworkData, weekInfo, todayInfo) {
+            let tableHTML = `
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">اليوم</th>
+                                <th style="width: 85%;">الواجبات الدراسية</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            DAYS.forEach((day, index) => {
+                const dayData = homeworkData[day] || [];
+                
+                // حساب تاريخ اليوم
+                const dayDate = new Date(weekInfo.saturday);
+                dayDate.setDate(weekInfo.saturday.getDate() + index);
+                const dayDateFormatted = formatDate(dayDate);
+                
+                // التحقق إذا كان اليوم هو اليوم الحالي
+                const isToday = todayInfo.dateObj.getDate() === dayDate.getDate() &&
+                               todayInfo.dateObj.getMonth() === dayDate.getMonth() &&
+                               todayInfo.dateObj.getFullYear() === dayDate.getFullYear();
+                
+                tableHTML += `
+                    <tr>
+                        <td class="day-header ${isToday ? 'current-day' : ''}">
+                            <div style="font-size: 1.2rem; margin-bottom: 5px;">${day}</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-bottom: 3px;">
+                                ${dayDateFormatted}
+                                ${isToday ? '<span class="today-badge">اليوم</span>' : ''}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #888;">
+                                ${dayData.length} واجب
+                            </div>
+                        </td>
+                        <td>
+                `;
+                
+                if (dayData.length > 0) {
+                    dayData.forEach((item, itemIndex) => {
+                        tableHTML += `
+                            <div class="subject-item" style="animation-delay: ${itemIndex * 0.1}s;">
+                                <div class="subject-name">
+                                    <i class="fas fa-book"></i>
+                                    ${item.subject || 'مادة'}
+                                    ${item.teacher ? `<span style="font-size: 0.8rem; color: #666; margin-right: 10px;">(${item.teacher})</span>` : ''}
+                                </div>
+                                <div class="homework-text">
+                                    <i class="fas fa-tasks" style="color: #666; font-size: 0.8rem;"></i>
+                                    ${item.homework || 'لا يوجد واجب محدد'}
+                                </div>
+                               
+                            </div>
+                        `;
+                    });
+                } else {
+                    tableHTML += `
+                        <div class="no-homework" style="margin: 0; text-align: center;">
+                            <i class="fas fa-coffee"></i>
+                            لا يوجد واجبات ليوم ${day}
+                        </div>
+                    `;
+                }
+                
+                tableHTML += `
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; text-align: center; font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-info-circle"></i>
+                    تم عرض واجبات أسبوع الدراسة: ${weekInfo.weekRange}
+                    <br>
+                    <small style="color: #2a5298;">
+                        <i class="fas fa-info-circle"></i> ملاحظة: تمت الفلترة بالمطابقة الثلاثية (الصف + الشعبة + تاريخ السبت)
+                    </small>
+                </div>
+            `;
+            
+            return tableHTML;
+        }
+        
+        // ============================================
+        // دوال النظام
+        // ============================================
+        
+        // الحصول على الاسم الكامل للصف
+        function getGradeFullName(gradeId) {
+            const gradeNames = {
+                "الأول": "الصف الأول الابتدائي",
+                "الثاني": "الصف الثاني الابتدائي",
+                "الثالث": "الصف الثالث الابتدائي",
+                "الرابع": "الصف الرابع الأساسي",
+                "الخامس": "الصف الخامس الأساسي",
+                "السادس": "الصف السادس الأساسي",
+                "السابع": "الصف السابع الأساسي",
+                "الثامن": "الصف الثامن الأساسي",
+                "التاسع": "الصف التاسع الأساسي"
+            };
+            
+            return gradeNames[gradeId] || `الصف ${gradeId}`;
+        }
+        
+        // دالة مساعدة لحساب إجمالي الواجبات
+        function countTotalHomework(homeworkData) {
+            let total = 0;
+            DAYS.forEach(day => {
+                total += (homeworkData[day] || []).length;
+            });
+            return total;
+        }
+        
+        // عرض/إخفاء شاشة التحميل
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+        
+        // العودة لقائمة الصفوف
+        function showGradesList() {
+            document.getElementById('homework-container').style.display = 'none';
+            document.getElementById('grades-container').style.display = 'block';
+            document.getElementById('message').style.display = 'none';
+            showLoading(false);
+        }
+        
+        // تحديث الواجبات الحالية
+        function refreshHomework() {
+            if (!currentGrade || !currentSection) return;
+            
+            const gradeName = `${getGradeFullName(currentGrade)} - ${currentSection === "جميع الشعب" ? currentSection : `الشعبة ${currentSection}`}`;
+            loadHomeworkTripleMatch(currentGrade, currentSection, gradeName);
+        }
+        
+        // اختبار الاتصال
+        function testConnection() {
+            const callbackName = 'test_callback_' + Date.now();
+            
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                
+                if (data && data.success) {
+                    showMessage(
+                        `✅ الاتصال بنجاح!<br>
+                         📊 النظام: ${data.system || 'نظام الطلاب'}<br>
+                         ⏰ الوقت: ${new Date().toLocaleString('ar-SA')}<br>
+                         📝 الرسالة: ${data.message}<br>
+                         <small>الإصدار: ${data.version || 'غير محدد'}</small>`, 
+                        'success',
+                        6000
+                    );
+                } else {
+                    showMessage(
+                        `❌ فشل الاتصال<br>
+                         السبب: ${data?.error || 'خطأ غير معروف'}`, 
+                        'error'
+                    );
+                }
+            };
+            
+            const script = document.createElement('script');
+            const url = `${STUDENT_API_URL}?action=ping&callback=${callbackName}&t=${Date.now()}`;
+            script.src = url;
+            
+            script.onerror = function() {
+                showMessage(
+                    '❌ فشل الاتصال بالسكريبت<br>' +
+                    '<small>تحقق من الرابط وإعدادات النشر</small>', 
+                    'error'
+                );
+                delete window[callbackName];
+            };
+            
+            document.body.appendChild(script);
+        }
+        
+        // عرض تعليمات للمستخدمين
+        function showInstructions() {
+            const weekInfo = getCurrentWeekInfo();
+            
+            showMessage(
+                `📚 <strong>كيفية استخدام النظام:</strong><br>
+                1. اختر الصف الدراسي من القائمة<br>
+                2. اختر الشعبة المناسبة<br>
+                3. انتظر تحميل واجبات الأسبوع الحالي<br>
+                4. استخدم زر "تحديث" لأحدث البيانات<br><br>
+                
+                <i class="fas fa-calendar-alt"></i> <strong>الأسبوع الحالي:</strong><br>
+                ${weekInfo.weekRange}<br><br>
+                
+                <i class="fas fa-filter"></i> <strong>مبدأ الفلترة:</strong><br>
+                • يتم البحث بالمطابقة الثلاثية:<br>
+                &nbsp;&nbsp;✓ الصف (من اختيارك)<br>
+                &nbsp;&nbsp;✓ الشعبة (من اختيارك)<br>
+                &nbsp;&nbsp;✓ تاريخ السبت (${weekInfo.saturdayDisplay})<br>
+                • يعرض النظام واجبات الأسبوع الحالي فقط<br>
+                • يتم تحديث البيانات بالضغط على زر "تحديث"`,
+                'info',
+                10000
+            );
+        }
+        
+        // عرض معلومات الأسبوع الحالي
+        function showCurrentWeekInfo() {
+            const weekInfo = getCurrentWeekInfo();
+            const todayInfo = getTodayInfo();
+            
+            showMessage(
+                `<i class="fas fa-calendar-week"></i> <strong>معلومات الأسبوع الحالي:</strong><br>
+                 تاريخ السبت (بداية الأسبوع): ${weekInfo.saturdayDisplay}<br>
+                 تاريخ الأربعاء (نهاية الأسبوع): ${weekInfo.wednesdayFormatted}<br>
+                 اليوم الحالي: ${todayInfo.dayName} - ${todayInfo.date}<br><br>
+                 
+                 <i class="fas fa-database"></i> <strong>مبدأ الفلترة:</strong><br>
+                 يتم البحث عن الصفوف التي تطابق:<br>
+                 1. الصف (من اختيار المستخدم)<br>
+                 2. الشعبة (من اختيار المستخدم)<br>
+                 3. تاريخ السبت في العمود J (${weekInfo.saturdayDisplay})<br><br>
+                 
+                 <i class="fas fa-lightbulb"></i> <strong>مثال:</strong><br>
+                 عند اختيار "الصف الثامن - شعبة ب"<br>
+                 سيبحث النظام عن الصفوف التي تحتوي على:<br>
+                 الصف: "الثامن" والشعبة: "ب" وتاريخ السبت: "${weekInfo.saturdayDisplay}"`,
+                'info',
+                12000
+            );
+        }
+        
+        // ============================================
+        // تهيئة النظام
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGrades();
+            
+            setTimeout(() => {
+                const weekInfo = getCurrentWeekInfo();
+                const todayInfo = getTodayInfo();
+                showMessage(
+                    `مرحباً بك في نظام الواجبات المنزلية<br>
+                     <i class="fas fa-calendar-week"></i> أسبوع الدراسة: ${weekInfo.weekRange}<br>
+                     <i class="fas fa-clock"></i> اليوم: ${todayInfo.dayName} - ${todayInfo.date}<br>
+                     <i class="fas fa-filter"></i> يتم البحث بالمطابقة الثلاثية<br>
+                     اختر الصف والشعبة لعرض واجبات الأسبوع الحالي`,
+                    'info',
+                    8000
+                );
+            }, 1000);
+        });
+        
+        // ============================================
+        // معالجة الأخطاء العامة
+        // ============================================
+        
+        window.addEventListener('error', function(e) {
+            console.error('حدث خطأ:', e.error);
+        });
+        
+        window.addEventListener('offline', function() {
+            showMessage('⚠️ فقدت الاتصال بالإنترنت', 'error');
+        });
+        
+        window.addEventListener('online', function() {
+            showMessage('✅ تم استعادة الاتصال بالإنترنت', 'success', 3000);
+        });
+    </script>
+</body>
+</html>
