@@ -503,10 +503,30 @@
             margin-bottom: 2rem;
         }
 
+        .table-header {
+            display: flex;
+            background: #34495e;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+
+        .day-header {
+            width: 20%;
+            text-align: center;
+            padding: 0 0.5rem;
+        }
+
+        .homework-header-cell {
+            width: 80%;
+            text-align: right;
+            padding: 0 1rem;
+        }
+
         .table-row {
             border-bottom: 1px solid #eee;
             display: flex;
-            min-height: 85px;
+            min-height: auto;
             transition: all 0.3s ease;
         }
 
@@ -522,8 +542,8 @@
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             padding: 1rem;
-            width: 100px;
-            min-width: 100px;
+            width: 20%;
+            min-width: 20%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -553,25 +573,72 @@
 
         .content-cell {
             flex: 1;
-            padding: 1.2rem;
-            display: flex;
-            align-items: center;
+            padding: 1rem;
+            width: 80%;
         }
 
-        .homework-item {
+        .subject-items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .subject-item {
             background: linear-gradient(135deg, #f5f7fa, #e4eaf5);
             padding: 1.2rem;
             border-radius: 12px;
             border-right: 5px solid #FF6B6B;
-            width: 100%;
-            line-height: 1.6;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
-        .homework-item:hover {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subject-item:hover {
             transform: translateX(5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .subject-name {
+            color: #2D3436;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .teacher-info {
+            color: #636E72;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+
+        .homework-text {
+            color: #2D3436;
+            line-height: 1.6;
+            padding-right: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .homework-text i {
+            color: #FF6B6B;
+            font-size: 0.9rem;
+            margin-top: 0.2rem;
         }
 
         .no-homework {
@@ -579,7 +646,9 @@
             text-align: center;
             width: 100%;
             font-style: italic;
-            padding: 1rem;
+            padding: 2rem 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
         }
 
         /* ============ NO DATA MESSAGE ============ */
@@ -667,8 +736,16 @@
                 color: #ecf0f1;
             }
             
-            .homework-item {
+            .subject-item {
                 background: #34495e;
+                color: #ecf0f1;
+            }
+            
+            .subject-name {
+                color: #ecf0f1;
+            }
+            
+            .homework-text {
                 color: #ecf0f1;
             }
             
@@ -740,6 +817,7 @@
         // إعدادات النظام
         // ============================================
         const STUDENT_API_URL = 'https://script.google.com/macros/s/AKfycbzODk30S5o2ZCoIJQdmAmx8WPSxDtYE7mZ4FC5ke436kcFoCq76XsfzJOi51R1K1owL2A/exec';
+        const DAYS = ["السبت", "الأحد", "الإثنين", "الثلاثاء", "الأربعاء"];
         
         // تعريف الصفوف الدراسية مع الشعب المعدلة
         const SCHOOL_GRADES = [
@@ -1113,18 +1191,47 @@
             }
             
             // عرض البيانات التي تم العثور عليها
-            const homeworkData = data.results[0].homework || {};
+            const homeworkData = processHomeworkData(data.results);
             showMessage(`✅ تم تحميل واجبات ${displayName} - شعبة ${section}`, 'success', 3000);
             showHomeworkTable(displayName, section, homeworkData, weekInfo, data);
         }
 
+        // دالة لمعالجة بيانات الواجبات
+        function processHomeworkData(results) {
+            const processedData = {};
+            
+            // تهيئة الأيام
+            DAYS.forEach(day => {
+                processedData[day] = [];
+            });
+            
+            // معالجة كل نتيجة
+            results.forEach(result => {
+                const subject = result.subject || 'مادة';
+                const teacher = result.teacher || '';
+                
+                // إضافة واجبات لكل يوم
+                DAYS.forEach(day => {
+                    const homework = result.homework[day] || '';
+                    if (homework.trim() !== '') {
+                        processedData[day].push({
+                            subject: subject,
+                            teacher: teacher,
+                            homework: homework
+                        });
+                    }
+                });
+            });
+            
+            return processedData;
+        }
+
         // ============================================
-        // عرض جدول الواجبات
+        // ⭐ دالة عرض جدول الواجبات المحسنة ⭐
         // ============================================
         function showHomeworkTable(displayName, section, homeworkData, weekInfo, serverData) {
             const container = document.getElementById('homework-container');
             const todayInfo = getTodayInfo();
-            const days = ["السبت", "الأحد", "الإثنين", "الثلاثاء", "الأربعاء"];
             
             let html = `
                 <div class="homework-header">
@@ -1165,8 +1272,8 @@
             
             // التحقق من وجود واجبات
             let hasHomework = false;
-            days.forEach(day => {
-                if (homeworkData[day] && homeworkData[day].trim() !== '') {
+            DAYS.forEach(day => {
+                if (homeworkData[day] && homeworkData[day].length > 0) {
                     hasHomework = true;
                 }
             });
@@ -1180,38 +1287,67 @@
                     </div>
                 `;
             } else {
-                html += `<div class="homework-table">`;
+                html += `
+                    <div class="homework-table">
+                        <div class="table-header">
+                            <div class="day-header">اليوم</div>
+                            <div class="homework-header-cell">الواجبات الدراسية</div>
+                        </div>
+                `;
                 
-                days.forEach((day, index) => {
+                DAYS.forEach((day, index) => {
+                    const dayData = homeworkData[day] || [];
+                    
+                    // حساب تاريخ اليوم
                     const dayDate = new Date(weekInfo.saturday);
                     dayDate.setDate(weekInfo.saturday.getDate() + index);
                     const dayDateFormatted = formatDate(dayDate);
                     
+                    // التحقق إذا كان اليوم هو اليوم الحالي
                     const isToday = todayInfo.dateObj.getDate() === dayDate.getDate() &&
                                    todayInfo.dateObj.getMonth() === dayDate.getMonth() &&
                                    todayInfo.dateObj.getFullYear() === dayDate.getFullYear();
-                    
-                    const homework = homeworkData[day] || '';
                     
                     html += `
                         <div class="table-row ${isToday ? 'current-day' : ''}">
                             <div class="day-cell">
                                 <div class="day-name">${day}</div>
-                                <div class="day-date">${dayDateFormatted}</div>
+                                <div class="day-date">
+                                    ${dayDateFormatted}
+                                    ${isToday ? '<span style="background: #FF6B6B; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-top: 5px;">اليوم</span>' : ''}
+                                </div>
+                                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-top: 5px;">
+                                    ${dayData.length} واجب
+                                </div>
                             </div>
                             <div class="content-cell">
                     `;
                     
-                    if (homework.trim() !== '') {
-                        html += `
-                            <div class="homework-item">
-                                ${homework}
-                            </div>
-                        `;
+                    if (dayData.length > 0) {
+                        html += `<div class="subject-items-container">`;
+                        
+                        dayData.forEach((item, itemIndex) => {
+                            html += `
+                                <div class="subject-item" style="animation-delay: ${itemIndex * 0.1}s;">
+                                    <div class="subject-name">
+                                        <i class="fas fa-book" style="color: #6C5CE7;"></i>
+                                        ${item.subject || 'مادة'}
+                                        ${item.teacher ? `<span class="teacher-info">(${item.teacher})</span>` : ''}
+                                    </div>
+                                    <div class="homework-text">
+                                        <i class="fas fa-tasks"></i>
+                                        ${item.homework || 'لا يوجد واجب محدد'}
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        html += `</div>`;
                     } else {
                         html += `
                             <div class="no-homework">
-                                <i class="fas fa-coffee"></i> لا يوجد واجب
+                                <i class="fas fa-coffee"></i>
+                                لا يوجد واجبات ليوم ${day}
                             </div>
                         `;
                     }
@@ -1222,7 +1358,17 @@
                     `;
                 });
                 
-                html += `</div>`;
+                html += `
+                    </div>
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 12px; text-align: center; font-size: 0.9rem; color: #636E72; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <i class="fas fa-info-circle" style="color: #6C5CE7;"></i>
+                        تم عرض واجبات أسبوع الدراسة: ${weekInfo.weekRange}
+                        <br>
+                        <small style="color: #2a5298;">
+                            <i class="fas fa-info-circle"></i> ملاحظة: تمت الفلترة بالمطابقة الثلاثية (الصف + الشعبة + تاريخ السبت)
+                        </small>
+                    </div>
+                `;
             }
             
             html += `</div>`; // إغلاق homework-content
