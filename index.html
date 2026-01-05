@@ -91,6 +91,239 @@
       line-height: 1.7;
     }
     
+    /* شاشة اختيار المدرسة */
+    .school-selection {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    
+    .selection-container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    
+    .selection-header {
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--primary);
+    }
+    
+    .selection-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+    
+    .selection-header p {
+      font-size: 1.2rem;
+      color: #555;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .selection-instruction {
+      background: linear-gradient(135deg, var(--warning), #e67e22);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 25px rgba(243, 156, 18, 0.2);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .selection-instruction i {
+      margin-left: 10px;
+      font-size: 1.3rem;
+    }
+    
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    @media (max-width: 768px) {
+      .cards-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+    
+    .school-card {
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      transition: all 0.4s ease;
+      position: relative;
+      border: none;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .school-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+    
+    .card-center {
+      border-top: 10px solid var(--center-primary);
+    }
+    
+    .card-branch {
+      border-top: 10px solid var(--branch-primary);
+    }
+    
+    .school-card-header {
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .card-center .school-card-header {
+      background: linear-gradient(135deg, var(--center-primary), var(--center-secondary));
+    }
+    
+    .card-branch .school-card-header {
+      background: linear-gradient(135deg, var(--branch-primary), var(--branch-secondary));
+    }
+    
+    .school-icon {
+      font-size: 4rem;
+      color: white;
+      margin-bottom: 20px;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    .school-title {
+      color: white;
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    
+    .school-card-body {
+      padding: 40px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .school-description {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      text-align: center;
+      flex-grow: 1;
+    }
+    
+    .school-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px 0;
+    }
+    
+    .school-features li {
+      padding: 12px 0;
+      border-bottom: 1px dashed #eee;
+      color: #555;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .school-features li i {
+      color: var(--center-secondary);
+      font-size: 1.1rem;
+    }
+    
+    .card-branch .school-features li i {
+      color: var(--branch-secondary);
+    }
+    
+    .select-school-btn {
+      width: 100%;
+      padding: 20px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-top: auto;
+      text-decoration: none;
+      color: white;
+    }
+    
+    .btn-center {
+      background: linear-gradient(135deg, var(--center-primary), #1f639b);
+      box-shadow: 0 6px 20px rgba(41, 128, 185, 0.3);
+    }
+    
+    .btn-center:hover {
+      background: linear-gradient(135deg, #1f639b, var(--center-primary));
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(41, 128, 185, 0.4);
+      color: white;
+    }
+    
+    .btn-branch {
+      background: linear-gradient(135deg, var(--branch-primary), #219653);
+      box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+    }
+    
+    .btn-branch:hover {
+      background: linear-gradient(135deg, #219653, var(--branch-primary));
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+      color: white;
+    }
+    
+    .selection-footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #666;
+      font-size: 0.9rem;
+      padding: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    /* الصفحة الرئيسية (مخفية في البداية) */
+    #mainContent {
+      display: none;
+    }
+    
     /* تحسين الشريط العلوي */
     .navbar {
       background: linear-gradient(135deg, var(--primary) 0%, #34495e 100%) !important;
@@ -667,6 +900,42 @@
     
     /* تحسينات للهواتف */
     @media (max-width: 768px) {
+      .selection-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .cards-container {
+        gap: 20px;
+      }
+      
+      .school-card {
+        margin: 0 10px;
+      }
+      
+      .school-card-header {
+        padding: 20px;
+        min-height: 150px;
+      }
+      
+      .school-icon {
+        font-size: 3rem;
+        width: 80px;
+        height: 80px;
+      }
+      
+      .school-title {
+        font-size: 1.5rem;
+      }
+      
+      .school-card-body {
+        padding: 25px;
+      }
+      
+      .selection-instruction {
+        padding: 15px 20px;
+        font-size: 1rem;
+      }
+      
       header {
         padding: 30px 15px;
         border-radius: 0 0 30px 30px;
@@ -744,6 +1013,10 @@
     }
     
     @media (max-width: 480px) {
+      .cards-container {
+        grid-template-columns: 1fr;
+      }
+      
       .grid-btn {
         flex-direction: column;
         text-align: center;
@@ -768,6 +1041,14 @@
       
       header h1 {
         font-size: 1.5rem;
+      }
+      
+      .school-title {
+        font-size: 1.3rem;
+      }
+      
+      .school-description {
+        font-size: 1rem;
       }
     }
     
@@ -832,9 +1113,115 @@
       margin: 0 auto 35px;
       padding: 0 20px;
     }
+    
+    /* زر العودة لاختيار المدرسة */
+    #backToSelection {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 9998;
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 25px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(155, 89, 182, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    #backToSelection:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(155, 89, 182, 0.6);
+    }
   </style>
 </head>
 <body>
+
+  <!-- شاشة اختيار المدرسة -->
+  <div class="school-selection" id="schoolSelection">
+    <div class="selection-container">
+      <div class="selection-header">
+        <h1>مدارس عمران الاهلية</h1>
+        <p>نظام النتائج الإلكتروني - اختر المدرسة التي يدرس فيها الطالب</p>
+      </div>
+      
+      <div class="selection-instruction">
+        <i class="fas fa-info-circle"></i>
+        <span>يرجى اختيار المدرسة التي يدرس فيها الطالب للاطلاع على النتائج والخدمات المتاحة</span>
+      </div>
+      
+      <div class="cards-container">
+        <!-- بطاقة المركز -->
+        <div class="school-card card-center fade-in">
+          <div class="school-card-header">
+            <div class="school-icon">
+              <i class="fas fa-university"></i>
+            </div>
+            <h2 class="school-title">مدارس عمران الاهلية - المركز</h2>
+          </div>
+          <div class="school-card-body">
+            <p class="school-description">
+              المركز الرئيسي لمدارس عمران الاهلية يضم جميع المراحل الدراسية من الروضة حتى الثانوية العامة. يتميز بوجود أحدث الوسائل التعليمية والمختبرات المتطورة.
+            </p>
+            <ul class="school-features">
+              <li><i class="fas fa-check-circle"></i> جميع المراحل الدراسية</li>
+              <li><i class="fas fa-check-circle"></i> مختبرات علمية </li>
+              <li><i class="fas fa-check-circle"></i> معمل حاسوب ووسائل علمية حديثة</li>
+              <li><i class="fas fa-check-circle"></i> أنشطة متنوعة ومسابقات</li>
+              <li><i class="fas fa-check-circle"></i> خدمة النتائج الإلكترونية</li>
+            </ul>
+            <button class="select-school-btn btn-center" onclick="selectSchool('center')">
+              <i class="fas fa-arrow-left"></i>
+              <span>اختيار المركز الرئيسي</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- بطاقة الفرع -->
+        <div class="school-card card-branch fade-in">
+          <div class="school-card-header">
+            <div class="school-icon">
+              <i class="fas fa-school"></i>
+            </div>
+            <h2 class="school-title">مدارس عمران الاهلية - الفرع</h2>
+          </div>
+          <div class="school-card-body">
+            <p class="school-description">
+              فرع مدارس عمران الاهلية يقدم تعليماً متميزاً في بيئة تعليمية محفزة. يركز على تطوير المهارات والقدرات الإبداعية للطلاب مع الحفاظ على الجودة التعليمية.
+            </p>
+            <ul class="school-features">
+              <li><i class="fas fa-check-circle"></i> مراحل تعليمية متكاملة</li>
+              <li><i class="fas fa-check-circle"></i> فصول دراسية مجهزة</li>
+              <li><i class="fas fa-check-circle"></i> ملاعب وأنشطة رياضية</li>
+              <li><i class="fas fa-check-circle"></i> مختبرات للعلوم والكمبيوتر</li>
+              <li><i class="fas fa-check-circle"></i> متابعة أكاديمية مستمرة</li>
+            </ul>
+            <button class="select-school-btn btn-branch" onclick="selectSchool('branch')">
+              <i class="fas fa-arrow-left"></i>
+              <span>اختيار فرع المدرسة</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="selection-footer">
+        <p>© 2024 مدارس عمران الاهلية. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- زر العودة لاختيار المدرسة -->
+  <button id="backToSelection" onclick="showSchoolSelection()">
+    <i class="fas fa-exchange-alt"></i>
+    <span>تغيير المدرسة</span>
+  </button>
 
   <!-- زر تفعيل الإشعارات -->
   <button id="notifyBtn" title="تفعيل الإشعارات"><i class="fas fa-bell"></i></button>
@@ -849,602 +1236,827 @@
   <!-- زر التثبيت الرئيسي -->
   <button id="installBtn"><i class="fas fa-download"></i> تثبيت التطبيق</button>
 
-  <!-- شريط التنقل -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <i class="fas fa-school me-2"></i>مدارس عمران الاهلية
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#results"><i class="fas fa-chart-line me-1"></i> المحصلات والنتائج</a></li>
-          <li class="nav-item"><a class="nav-link" href="#absence"><i class="fas fa-user-clock me-1"></i> غياب الطلاب</a></li>
-          <li class="nav-item"><a class="nav-link" href="#activities"><i class="fas fa-trophy me-1"></i> الأنشطة الدراسية</a></li>
-          <li class="nav-item"><a class="nav-link" href="#rules"><i class="fas fa-gavel me-1"></i> الأنظمة والقوانين</a></li>
-          <li class="nav-item"><a class="nav-link" href="#location"><i class="fas fa-map-marker-alt me-1"></i> موقع المجمع</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- رأس الصفحة -->
-  <header class="text-center">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-8">
-          <h1 class="fade-in">مدارس عمران الاهلية</h1>
-          <p class="lead mt-2">التميز في التعليم.. مستقبل مشرق لأبنائنا</p>
-          <div class="mt-3">
-            <span class="location-badge badge-center me-2"><i class="fas fa-building"></i> المركز الرئيسي</span>
-            <span class="location-badge badge-branch"><i class="fas fa-code-branch"></i> فرع المدرسة</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <img src="logo.png" alt="شعار المدرسة" class="img-fluid fade-in">
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- قسم عن المدرسة -->
-  <section id="about" class="fade-in">
-    <div class="container">
-      <h2>عن مدارس عمران الاهلية</h2>
-      <p class="text-center mb-4">مدارس عمران الاهلية - مؤسسة تعليمية رائدة في محافظة عمران، تهدف إلى تقديم تعليم متميز وفق أعلى المعايير التعليمية. نحن نعمل على تطوير مهارات الطلاب علمياً وشخصياً.</p>
-      <div class="row mt-4">
-        <div class="col-md-4">
-          <div class="p-3">
-            <i class="fas fa-eye fa-3x mb-3"></i>
-            <h4>رؤيتنا</h4>
-            <p>التميز في تقديم التعليم النوعي الذي يواكب متطلبات العصر</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-3">
-            <i class="fas fa-bullseye fa-3x mb-3"></i>
-            <h4>رسالتنا</h4>
-            <p>تخريج طلاب متميزين دراسياً وأخلاقياً</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-3">
-            <i class="fas fa-star fa-3x mb-3"></i>
-            <h4>قيمنا</h4>
-            <p>الجودة، الالتزام، الابتكار، العمل الجماعي</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
- <!-- ========== قسم النتائج المحسن ========== -->
-<section id="results" class="fade-in">
-  <div class="container">
-    <div class="section-header">
-      <h2><i class="fas fa-chart-line"></i> المحصلات والنتائج</h2>
-      <div>
-        <span class="location-badge badge-center me-2"><i class="fas fa-building"></i> المركز الرئيسي</span>
-        <span class="location-badge badge-branch"><i class="fas fa-code-branch"></i> فرع المدرسة</span>
-      </div>
-    </div>
-    
-    <p class="section-description">
-      يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم. اختر القسم المناسب من الأزرار أدناه.
-    </p>
-    
-    <!-- بطاقة المركز -->
-    <div class="section-card card-center">
-      <div class="card-header">
-        <i class="fas fa-university"></i>
-        <h3>المركز الرئيسي</h3>
-        <span class="ribbon ribbon-center">المركز الرئيسي</span>
-      </div>
-      
-      <p class="card-description">
-        نتائج ومحصلات طلاب المركز الرئيسي لمدارس عمران الأهلية.
-      </p>
-      
-      <div class="buttons-grid">
-        <a href="‏‏results_grade4.html" class="grid-btn btn-center-grid" title="نتائج ومحصلات المركز">
-          <i class="fas fa-chart-bar"></i>
-          <span>نتائج ومحصلات المركز</span>
+  <!-- المحتوى الرئيسي (مخفٍ في البداية) -->
+  <div id="mainContent">
+    <!-- شريط التنقل -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-school me-2"></i>مدارس عمران الاهلية
         </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#results"><i class="fas fa-chart-line me-1"></i> المحصلات والنتائج</a></li>
+            <li class="nav-item"><a class="nav-link" href="#absence"><i class="fas fa-user-clock me-1"></i> غياب الطلاب</a></li>
+            <li class="nav-item"><a class="nav-link" href="#activities"><i class="fas fa-trophy me-1"></i> الأنشطة الدراسية</a></li>
+            <li class="nav-item"><a class="nav-link" href="#rules"><i class="fas fa-gavel me-1"></i> الأنظمة والقوانين</a></li>
+            <li class="nav-item"><a class="nav-link" href="#location"><i class="fas fa-map-marker-alt me-1"></i> الموقع الجغرافي</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- رأس الصفحة -->
+    <header class="text-center">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h1 class="fade-in" id="schoolTitle">مدارس عمران الاهلية</h1>
+            <p class="lead mt-2" id="schoolSubtitle">التميز في التعليم.. مستقبل مشرق لأبنائنا</p>
+            <div class="mt-3">
+              <span class="location-badge badge-center me-2"><i class="fas fa-building"></i> المركز الرئيسي</span>
+              <span class="location-badge badge-branch"><i class="fas fa-code-branch"></i> فرع المدرسة</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <img src="logo.png" alt="شعار المدرسة" class="img-fluid fade-in">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- قسم عن المدرسة -->
+    <section id="about" class="fade-in">
+      <div class="container">
+        <h2>عن مدارس عمران الاهلية</h2>
+        <p class="text-center mb-4">مدارس عمران الاهلية - مؤسسة تعليمية رائدة في محافظة عمران، تهدف إلى تقديم تعليم متميز وفق أعلى المعايير التعليمية. نحن نعمل على تطوير مهارات الطلاب علمياً وشخصياً.</p>
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <div class="p-3">
+              <i class="fas fa-eye fa-3x mb-3"></i>
+              <h4>رؤيتنا</h4>
+              <p>التميز في تقديم التعليم النوعي الذي يواكب متطلبات العصر</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== قسم النتائج المحسن ========== -->
+    <section id="results" class="fade-in">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-chart-line"></i> المحصلات والنتائج</h2>
+          <div id="resultsBadges">
+            <!-- سيتم تعبئته بالجافاسكربت -->
+          </div>
+        </div>
         
-        <a href="results_grade1.html" class="grid-btn btn-center-grid" title="نتائج طلاب الثانوية">
-          <i class="fas fa-graduation-cap"></i>
-          <span>نتائج الثانوية - المركز</span>
-        </a>
-      </div>
-    </div>
-    
-    <!-- بطاقة الفرع -->
-    <div class="section-card card-branch">
-      <div class="card-header">
-        <i class="fas fa-school"></i>
-        <h3>فرع المدرسة</h3>
-        <span class="ribbon ribbon-branch">فرع المدرسة</span>
-      </div>
-      
-      <p class="card-description">
-        نتائج ومحصلات طلاب فرع مدارس عمران الأهلية.
-      </p>
-      
-      <div class="buttons-grid">
-        <a href="‏‏‏‏resultsgrade2.html" class="grid-btn btn-branch-grid" title="نتائج ومحصلات الفرع">
-          <i class="fas fa-chart-pie"></i>
-          <span>نتائج ومحصلات الفرع</span>
-        </a>
+        <p class="section-description">
+          يمكنك الاطلاع على نتائج الطلاب والمحصلة الدراسية من خلال هذا القسم. اختر القسم المناسب من الأزرار أدناه.
+        </p>
         
-        <a href="#" class="grid-btn btn-branch-grid" title="متابعة التقدم الدراسي">
-          <i class="fas fa-user-graduate"></i>
-          <span>متابعة التقدم الدراسي</span>
-        </a>
+        <!-- بطاقة المركز (ستظهر فقط إذا تم اختيار المركز) -->
+        <div class="section-card card-center" id="centerResults" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-university"></i>
+            <h3>المركز الرئيسي</h3>
+            <span class="ribbon ribbon-center">المركز الرئيسي</span>
+          </div>
+          
+          <p class="card-description">
+            نتائج ومحصلات طلاب المركز الرئيسي لمدارس عمران الأهلية.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="‏‏results_grade4.html" class="grid-btn btn-center-grid" title="نتائج ومحصلات المركز">
+              <i class="fas fa-chart-bar"></i>
+              <span>نتائج ومحصلات المركز</span>
+            </a>
+            
+            <a href="results_grade1.html" class="grid-btn btn-center-grid" title="نتائج طلاب الثانوية">
+              <i class="fas fa-graduation-cap"></i>
+              <span>نتائج الثانوية - المركز</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- بطاقة الفرع (ستظهر فقط إذا تم اختيار الفرع) -->
+        <div class="section-card card-branch" id="branchResults" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-school"></i>
+            <h3>فرع المدرسة</h3>
+            <span class="ribbon ribbon-branch">فرع المدرسة</span>
+          </div>
+          
+          <p class="card-description">
+            نتائج ومحصلات طلاب فرع مدارس عمران الأهلية.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="‏‏‏‏resultsgrade2.html" class="grid-btn btn-branch-grid" title="نتائج ومحصلات الفرع">
+              <i class="fas fa-chart-pie"></i>
+              <span>نتائج ومحصلات الفرع</span>
+            </a>
+            
+            <a href="#" class="grid-btn btn-branch-grid" title="متابعة التقدم الدراسي">
+              <i class="fas fa-user-graduate"></i>
+              <span>متابعة التقدم الدراسي</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- ========== قسم الواجبات المحسن ========== -->
+    <section id="homework" class="fade-in">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-book-open"></i> الواجبات المنزلية</h2>
+          <div id="homeworkBadges">
+            <!-- سيتم تعبئته بالجافاسكربت -->
+          </div>
+        </div>
+        
+        <p class="section-description">
+          يمكنك الاطلاع على الواجبات المنزلية اليومية والأسبوعية للطالب من خلال هذا القسم.
+        </p>
+        
+        <!-- بطاقة المركز (ستظهر فقط إذا تم اختيار المركز) -->
+        <div class="section-card card-center" id="centerHomework" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-tasks"></i>
+            <h3>الواجبات المنزلية - المركز</h3>
+            <span class="ribbon ribbon-center">المركز</span>
+          </div>
+          
+          <p class="card-description">
+            الواجبات المنزلية اليومية والأسبوعية لطلاب المركز الرئيسي حسب الصفوف والمواد الدراسية.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="homework.html" class="grid-btn btn-center-grid" title="الواجبات اليومية والأسبوعية - المركز">
+              <i class="fas fa-list-check"></i>
+              <span>عرض الواجبات اليومية والأسبوعية</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- بطاقة الفرع (ستظهر فقط إذا تم اختيار الفرع) -->
+        <div class="section-card card-branch" id="branchHomework" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-edit"></i>
+            <h3>الواجبات المنزلية - الفرع</h3>
+            <span class="ribbon ribbon-branch">الفرع</span>
+          </div>
+          
+          <p class="card-description">
+            الواجبات المنزلية اليومية والأسبوعية لطلاب فرع المدرسة حسب الصفوف والمواد الدراسية.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="homework1.html" class="grid-btn btn-branch-grid" title="الواجبات اليومية والأسبوعية - الفرع">
+              <i class="fas fa-clipboard-list"></i>
+              <span>عرض الواجبات اليومية والأسبوعية</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== قسم الغياب المحسن ========== -->
+    <section id="absence" class="fade-in">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-calendar-times"></i> متابعة الغياب</h2>
+          <div id="absenceBadges">
+            <!-- سيتم تعبئته بالجافاسكربت -->
+          </div>
+        </div>
+        
+        <p class="section-description">
+          يمكنك الاطلاع على عدد أيام الغياب وتاريخ الغياب للطالب من خلال هذا القسم.
+        </p>
+        
+        <!-- بطاقة غياب المركز (ستظهر فقط إذا تم اختيار المركز) -->
+        <div class="section-card card-center" id="centerAbsence" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-user-clock"></i>
+            <h3>متابعة الغياب - المركز</h3>
+            <span class="ribbon ribbon-center">المركز</span>
+          </div>
+          
+          <p class="card-description">
+            متابعة غياب طلاب المركز الرئيسي وتقارير الغياب الشهرية والفصلية.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="absence.html" class="grid-btn btn-center-grid" title="غياب النصف الأول - المركز">
+              <i class="fas fa-calendar-alt"></i>
+              <span>غياب النصف الأول</span>
+            </a>
+            
+            <a href="‏‏absence - 1.html" class="grid-btn btn-center-grid" title="غياب النصف الثاني - المركز">
+              <i class="fas fa-calendar-check"></i>
+              <span>غياب النصف الثاني</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- بطاقة غياب الفرع (ستظهر فقط إذا تم اختيار الفرع) -->
+        <div class="section-card card-branch" id="branchAbsence" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-user-times"></i>
+            <h3>متابعة الغياب - الفرع</h3>
+            <span class="ribbon ribbon-branch">الفرع</span>
+          </div>
+          
+          <p class="card-description">
+            متابعة غياب طلاب فرع المدرسة وتقارير الغياب الشهرية والفصلية.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="#" class="grid-btn btn-branch-grid" title="غياب النصف الأول - الفرع">
+              <i class="fas fa-calendar-alt"></i>
+              <span>غياب النصف الأول</span>
+            </a>
+            
+            <a href="#" class="grid-btn btn-branch-grid" title="غياب النصف الثاني - الفرع">
+              <i class="fas fa-calendar-check"></i>
+              <span>غياب النصف الثاني</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- صورة المدرسة -->
+    <section class="section-img text-center fade-in">
+      <div class="container">
+        <img src="school.gif" alt="صورة المدرسة المتحركة" class="img-fluid">
+      </div>
+    </section>
+
+    <!-- الأنشطة الدراسية -->
+    <section id="activities" class="fade-in">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-book-open"></i> الانشطة المدرسية والمسابقات</h2>
+          <div id="activitiesBadges">
+            <!-- سيتم تعبئته بالجافاسكربت -->
+          </div>
+        </div>
+        
+        <p class="section-description">
+          يمكنك من خلال هذة الصفحة الاطلاع على الانشطة والمسابقات المختلفة التي تقيمها المدرسة والتسجيل للمشاركة في الانشطة المختلفة.
+        </p>
+        
+        <!-- بطاقة المركز (ستظهر فقط إذا تم اختيار المركز) -->
+        <div class="section-card card-center" id="centerActivities" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-tasks"></i>
+            <h3>الانشطة والمسابقات - المركز</h3>
+            <span class="ribbon ribbon-center">المركز</span>
+          </div>
+          
+          <p class="card-description">
+            الانشطة والمسابقات واسماء الفائزين في الانشطة المختلفة.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="activities.html" class="grid-btn btn-center-grid" title="الانشطة والمسابقات المختلفة - المركز">
+              <i class="fas fa-list-check"></i>
+              <span>عرض الانشطة واسماء الفائزين</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- بطاقة الفرع (ستظهر فقط إذا تم اختيار الفرع) -->
+        <div class="section-card card-branch" id="branchActivities" style="display: none;">
+          <div class="card-header">
+            <i class="fas fa-edit"></i>
+            <h3>الانشطة والمسابقات - الفرع</h3>
+            <span class="ribbon ribbon-branch">الفرع</span>
+          </div>
+          
+          <p class="card-description">
+            الانشطة والمسابقات واسماء الفائزين في الانشطة المختلفة.
+          </p>
+          
+          <div class="buttons-grid">
+            <a href="activities.html" class="grid-btn btn-branch-grid" title="الانشطة والمسابقات المختلفة - الفرع">
+              <i class="fas fa-clipboard-list"></i>
+              <span>عرض الانشطة واسماء الفائزين</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الأنظمة والقوانين -->
+    <section id="rules" class="fade-in">
+      <div class="container">
+        <h2><i class="fas fa-gavel me-2"></i>الأنظمة والقوانين</h2>
+        <p class="text-center mb-4">راجع لوائح المدرسة والقوانين التنظيمية التي تضمن بيئة تعليمية سليمة.</p>
+        <div class="text-center mb-4">
+          <a href="#" class="btn btn-danger" id="showRulesBtn" style="background: linear-gradient(135deg, var(--accent), #c0392b); border: none; padding: 12px 30px; font-weight: 700; border-radius: 30px;">
+            <i class="fas fa-scroll me-2"></i>قراءة اللوائح
+          </a>
+        </div>
+        <div id="rulesContent" style="display: none;">
+          <ul>
+            <li>❖ الالتزام بالحضور اليومي وعدم التأخير عن الحصص الدراسية.</li>
+            <li>❖ احترام المعلمين والإداريين والزملاء في جميع الأوقات.</li>
+            <li>❖ الحفاظ على نظافة الصف والمرافق العامة داخل المجمع.</li>
+            <li>❖ يمنع استخدام الهاتف المحمول أثناء الدوام الدراسي.</li>
+            <li>❖ الالتزام بالزي المدرسي الرسمي وعدم التعديل عليه.</li>
+            <li>❖ يمنع الغش في الاختبارات ويعرض الطالب للمساءلة.</li>
+            <li>❖ المحافظة على الكتب والوسائل التعليمية من التلف أو الضياع.</li>
+            <li>❖ يمنع مغادرة المدرسة أثناء الدوام إلا بإذن خطي من الإدارة.</li>
+            <li>❖ المشاركة الإيجابية في الأنشطة المدرسية والفعاليات التربوية.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- الموقع الجغرافي -->
+    <section id="location" class="fade-in">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-map-marker-alt me-2"></i>الموقع الجغرافي للمدارس</h2>
+          <div id="locationBadges">
+            <!-- سيتم تعبئته بالجافاسكربت -->
+          </div>
+        </div>
+        
+        <p class="section-description" id="locationDescription">
+          <!-- سيتم تعبئته بالجافاسكربت -->
+        </p>
+        
+        <!-- خريطة المركز (ستظهر فقط إذا تم اختيار المركز) -->
+        <div id="centerLocation" style="display: none;">
+          <div class="ratio ratio-16x9">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <p class="text-center mt-3">موقع مدارس عمران الأهلية - المركز الرئيسي</p>
+        </div>
+        
+        <!-- خريطة الفرع (ستظهر فقط إذا تم اختيار الفرع) -->
+        <div id="branchLocation" style="display: none;">
+          <div class="ratio ratio-16x9">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <p class="text-center mt-3">موقع مدارس عمران الأهلية - فرع المدرسة</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="fade-in">
+      <div class="container">
+        <p>© 2024 مدارس عمران الاهلية. جميع الحقوق محفوظة.</p>
+        <p>مدارس عمران الاهلية - التميز في التعليم منذ تأسيسها</p>
+        <div class="mt-3" id="footerBadges">
+          <!-- سيتم تعبئته بالجافاسكربت -->
+        </div>
+      </div>
+    </footer>
   </div>
-</section>
-
-<!-- ========== قسم الواجبات المحسن ========== -->
-<section id="homework" class="fade-in">
-  <div class="container">
-    <div class="section-header">
-      <h2><i class="fas fa-book-open"></i> الواجبات المنزلية</h2>
-      <div>
-        <span class="location-badge badge-center me-2"><i class="fas fa-building"></i> المركز</span>
-        <span class="location-badge badge-branch"><i class="fas fa-code-branch"></i> الفرع</span>
-      </div>
-    </div>
-    
-    <p class="section-description">
-      يمكنك الاطلاع على الواجبات المنزلية اليومية والأسبوعية للطالب من خلال هذا القسم.
-    </p>
-    
-    <!-- بطاقة المركز -->
-    <div class="section-card card-center">
-      <div class="card-header">
-        <i class="fas fa-tasks"></i>
-        <h3>الواجبات المنزلية - المركز</h3>
-        <span class="ribbon ribbon-center">المركز</span>
-      </div>
-      
-      <p class="card-description">
-        الواجبات المنزلية اليومية والأسبوعية لطلاب المركز الرئيسي حسب الصفوف والمواد الدراسية.
-      </p>
-      
-      <div class="buttons-grid">
-        <a href="homework.html" class="grid-btn btn-center-grid" title="الواجبات اليومية والأسبوعية - المركز">
-          <i class="fas fa-list-check"></i>
-          <span>عرض الواجبات اليومية والأسبوعية</span>
-        </a>
-      </div>
-    </div>
-    
-    <!-- بطاقة الفرع -->
-    <div class="section-card card-branch">
-      <div class="card-header">
-        <i class="fas fa-edit"></i>
-        <h3>الواجبات المنزلية - الفرع</h3>
-        <span class="ribbon ribbon-branch">الفرع</span>
-      </div>
-      
-      <p class="card-description">
-        الواجبات المنزلية اليومية والأسبوعية لطلاب فرع المدرسة حسب الصفوف والمواد الدراسية.
-      </p>
-      
-      <div class="buttons-grid">
-        <a href="homework1.html" class="grid-btn btn-branch-grid" title="الواجبات اليومية والأسبوعية - الفرع">
-          <i class="fas fa-clipboard-list"></i>
-          <span>عرض الواجبات اليومية والأسبوعية</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== قسم الغياب المحسن ========== -->
-<section id="absence" class="fade-in">
-  <div class="container">
-    <div class="section-header">
-      <h2><i class="fas fa-calendar-times"></i> متابعة الغياب</h2>
-      <div>
-        <span class="location-badge badge-center me-2"><i class="fas fa-building"></i> المركز</span>
-        <span class="location-badge badge-branch"><i class="fas fa-code-branch"></i> الفرع</span>
-      </div>
-    </div>
-    
-    <p class="section-description">
-      يمكنك الاطلاع على عدد أيام الغياب وتاريخ الغياب للطالب من خلال هذا القسم.
-    </p>
-    
-    <!-- بطاقة غياب المركز -->
-    <div class="section-card card-center">
-      <div class="card-header">
-        <i class="fas fa-user-clock"></i>
-        <h3>متابعة الغياب - المركز</h3>
-        <span class="ribbon ribbon-center">المركز</span>
-      </div>
-      
-      <p class="card-description">
-        متابعة غياب طلاب المركز الرئيسي وتقارير الغياب الشهرية والفصلية.
-      </p>
-      
-      <div class="buttons-grid">
-        <a href="absence.html" class="grid-btn btn-center-grid" title="غياب النصف الأول - المركز">
-          <i class="fas fa-calendar-alt"></i>
-          <span>غياب النصف الأول</span>
-        </a>
-        
-        <a href="‏‏absence - 1.html" class="grid-btn btn-center-grid" title="غياب النصف الثاني - المركز">
-          <i class="fas fa-calendar-check"></i>
-          <span>غياب النصف الثاني</span>
-        </a>
-      </div>
-    </div>
-    
-    <!-- بطاقة غياب الفرع -->
-    <div class="section-card card-branch">
-      <div class="card-header">
-        <i class="fas fa-user-times"></i>
-        <h3>متابعة الغياب - الفرع</h3>
-        <span class="ribbon ribbon-branch">الفرع</span>
-      </div>
-      
-      <p class="card-description">
-        متابعة غياب طلاب فرع المدرسة وتقارير الغياب الشهرية والفصلية.
-      </p>
-      
-      <div class="buttons-grid">
-        <a href="#" class="grid-btn btn-branch-grid" title="غياب النصف الأول - الفرع">
-          <i class="fas fa-calendar-alt"></i>
-          <span>غياب النصف الأول</span>
-        </a>
-        
-        <a href="#" class="grid-btn btn-branch-grid" title="غياب النصف الثاني - الفرع">
-          <i class="fas fa-calendar-check"></i>
-          <span>غياب النصف الثاني</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <!-- صورة المدرسة -->
-  <section class="section-img text-center fade-in">
-    <div class="container">
-      <img src="school.gif" alt="صورة المدرسة المتحركة" class="img-fluid">
-    </div>
-  </section>
-
-  <!-- الأنشطة الدراسية -->
-  <section id="activities" class="fade-in">
-    <div class="container">
-      <h2><i class="fas fa-trophy me-2"></i>الأنشطة الدراسية</h2>
-      <p class="text-center mb-4">تعرف على الأنشطة والمسابقات التي تقيمها المدرسة لتعزيز مهارات الطلاب.</p>
-      <div class="text-center">
-        <a href="activities.html" class="btn btn-warning" style="background: linear-gradient(135deg, var(--warning), #e67e22); border: none; color: white; padding: 12px 30px; font-weight: 700; border-radius: 30px;">
-          <i class="fas fa-eye me-2"></i>عرض الأنشطة
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- الأنظمة والقوانين -->
-  <section id="rules" class="fade-in">
-    <div class="container">
-      <h2><i class="fas fa-gavel me-2"></i>الأنظمة والقوانين</h2>
-      <p class="text-center mb-4">راجع لوائح المدرسة والقوانين التنظيمية التي تضمن بيئة تعليمية سليمة.</p>
-      <div class="text-center mb-4">
-        <a href="#" class="btn btn-danger" id="showRulesBtn" style="background: linear-gradient(135deg, var(--accent), #c0392b); border: none; padding: 12px 30px; font-weight: 700; border-radius: 30px;">
-          <i class="fas fa-scroll me-2"></i>قراءة اللوائح
-        </a>
-      </div>
-      <div id="rulesContent" style="display: none;">
-        <ul>
-          <li>❖ الالتزام بالحضور اليومي وعدم التأخير عن الحصص الدراسية.</li>
-          <li>❖ احترام المعلمين والإداريين والزملاء في جميع الأوقات.</li>
-          <li>❖ الحفاظ على نظافة الصف والمرافق العامة داخل المجمع.</li>
-          <li>❖ يمنع استخدام الهاتف المحمول أثناء الدوام الدراسي.</li>
-          <li>❖ الالتزام بالزي المدرسي الرسمي وعدم التعديل عليه.</li>
-          <li>❖ يمنع الغش في الاختبارات ويعرض الطالب للمساءلة.</li>
-          <li>❖ المحافظة على الكتب والوسائل التعليمية من التلف أو الضياع.</li>
-          <li>❖ يمنع مغادرة المدرسة أثناء الدوام إلا بإذن خطي من الإدارة.</li>
-          <li>❖ المشاركة الإيجابية في الأنشطة المدرسية والفعاليات التربوية.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- موقع المجمع -->
-  <section id="location" class="fade-in">
-    <div class="container">
-      <h2><i class="fas fa-map-marker-alt me-2"></i>موقع مدارس عمران الأهلية</h2>
-      <p class="text-center mb-4">في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الأهلية من خلال خرائط Google.</p>
-      <div class="ratio ratio-16x9">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240.11170911294784!2d43.95569298416377!3d15.656308499321272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x16015b6f1740a353%3A0xf6f4f1862a61110a!2z2YXYr9in2LHYsyDYudmF2LHYp9mGINin2YTYp9mH2YTZitip!5e0!3m2!1sar!2s!4v1762272871348!5m2!1sar!2s" 
-          style="border:0;" 
-          allowfullscreen="" 
-          loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- الفوتر -->
-  <footer class="fade-in">
-    <div class="container">
-      <p>© 2024 مدارس عمران الاهلية. جميع الحقوق محفوظة.</p>
-      <p>مدارس عمران الاهلية - التميز في التعليم منذ تأسيسها</p>
-      <div class="mt-3">
-        <span class="location-badge badge-center me-2"><i class="fas fa-building"></i> المركز الرئيسي</span>
-        <span class="location-badge badge-branch"><i class="fas fa-code-branch"></i> فرع المدرسة</span>
-      </div>
-    </div>
-  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // إدارة زر الإشعارات
-    const notifyBtn = document.getElementById('notifyBtn');
-    notifyBtn.style.display = 'none';
+    // متغيرات عامة
+    let selectedSchool = '';
+    const backToSelectionBtn = document.getElementById('backToSelection');
 
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(function(OneSignal) {
-      OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
-        if (!isEnabled) {
-          notifyBtn.style.display = 'block';
-        }
-      });
-
-      notifyBtn.addEventListener('click', function () {
-        OneSignal.showSlidedownPrompt().catch(function (error) {
-          alert("حدث خطأ أثناء محاولة تفعيل الإشعارات.");
-          console.error(error);
-        });
-      });
-    });
-
-    // إدارة زر التثبيت
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-    const installBanner = document.getElementById('installBanner');
-    const installBannerBtn = document.getElementById('installBannerBtn');
-    const closeBanner = document.getElementById('closeBanner');
-
-    // التحقق مما إذا كان التطبيق مثبتًا بالفعل (دقيقة)
-    function checkIfAppIsInstalled() {
-      // الطريقة 1: التحقق من display-mode (الأكثر دقة)
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        console.log('التطبيق مثبت بالفعل (display-mode)');
-        localStorage.setItem('appInstalled', 'true');
-        return true;
-      }
-      
-      // الطريقة 2: التحقق من navigator.standalone (لـ iOS)
-      if (window.navigator.standalone === true) {
-        console.log('التطبيق مثبت بالفعل (navigator.standalone)');
-        localStorage.setItem('appInstalled', 'true');
-        return true;
-      }
-      
-      // الطريقة 3: إذا لم يكن في وضع PWA، نعتبره غير مثبت
-      console.log('التطبيق غير مثبت أو تم إلغاء التثبيت');
-      localStorage.removeItem('appInstalled'); // مسح أي حالة سابقة
-      return false;
-    }
-
-    // زر إعادة تعيين يدوي (للتجربة فقط - يمكن إزالته لاحقاً)
-    function addResetButton() {
-      const resetBtn = document.createElement('button');
-      resetBtn.innerHTML = '🔄 إعادة تعيين التثبيت';
-      resetBtn.style.position = 'fixed';
-      resetBtn.style.bottom = '20px';
-      resetBtn.style.left = '20px';
-      resetBtn.style.zIndex = '10001';
-      resetBtn.style.background = '#ff6b6b';
-      resetBtn.style.color = 'white';
-      resetBtn.style.border = 'none';
-      resetBtn.style.borderRadius = '20px';
-      resetBtn.style.padding = '10px 15px';
-      resetBtn.style.fontSize = '12px';
-      resetBtn.style.cursor = 'pointer';
-      resetBtn.style.boxShadow = '0 2px 10px rgba(255,107,107,0.3)';
-      
-      resetBtn.addEventListener('click', function() {
-        localStorage.removeItem('appInstalled');
-        localStorage.removeItem('bannerClosed');
-        installBtn.style.display = 'flex';
-        installBanner.style.display = 'none';
-        alert('تم إعادة تعيين إعدادات التثبيت. سيظهر زر التثبيت الآن.');
-        console.log('تم إعادة تعيين إعدادات التثبيت');
-      });
-      
-      document.body.appendChild(resetBtn);
-    }
-
-    // إظهار زر التثبيت بعد تحميل الصفحة
-    window.addEventListener('load', () => {
-      // إضافة زر إعادة التعيين (للتجربة)
-      addResetButton();
-      
-      // التحقق من حالة التثبيت
-      const isInstalled = checkIfAppIsInstalled();
-      
-      if (isInstalled) {
-        console.log('تم الكشف عن تطبيق مثبت - إخفاء أزرار التثبيت');
-        installBtn.style.display = 'none';
-        installBanner.style.display = 'none';
-      } else {
-        console.log('لم يتم الكشف عن تطبيق مثبت - إظهار أزرار التثبيت');
+    // دالة اختيار المدرسة
+    function selectSchool(school) {
+        selectedSchool = school;
+        localStorage.setItem('selectedSchool', school);
+        
+        // إخفاء شاشة الاختيار
+        document.getElementById('schoolSelection').style.display = 'none';
+        
+        // إظهار المحتوى الرئيسي
+        document.getElementById('mainContent').style.display = 'block';
+        
+        // إظهار زر العودة
+        backToSelectionBtn.style.display = 'flex';
+        
+        // تحديث واجهة المستخدم بناءً على المدرسة المختارة
+        updateUIForSelectedSchool();
+        
+        // إعادة تحميل الأقسام لتطبيق التغييرات
         setTimeout(() => {
-          installBtn.style.display = 'flex';
-          // إظهار الشريط العلوي بعد 5 ثوانٍ
-          setTimeout(() => {
-            if (!localStorage.getItem('bannerClosed')) {
-              installBanner.style.display = 'block';
-            }
-          }, 5000);
-        }, 1000);
-      }
-    });
-
-    // الاستماع لحدث beforeinstallprompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      
-      console.log('حدث beforeinstallprompt تم استدعاؤه');
-      
-      // التحقق مرة أخرى إذا كان التطبيق مثبتًا
-      if (checkIfAppIsInstalled()) {
-        installBtn.style.display = 'none';
-        installBanner.style.display = 'none';
-        return;
-      }
-      
-      // تثبيت مباشر عند النقر
-      installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          try {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-              console.log('تم تثبيت التطبيق ✅');
-              installBtn.style.display = 'none';
-              installBanner.style.display = 'none';
-              // حفظ حالة التثبيت
-              localStorage.setItem('appInstalled', 'true');
-            } else {
-              console.log('تم رفض التثبيت ❌');
-            }
-            deferredPrompt = null;
-          } catch (error) {
-            console.error('خطأ في التثبيت:', error);
-          }
-        }
-      });
-      
-      // نفس الوظيفة للشريط العلوي
-      installBannerBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          try {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-              console.log('تم تثبيت التطبيق ✅');
-              installBtn.style.display = 'none';
-              installBanner.style.display = 'none';
-              // حفظ حالة التثبيت
-              localStorage.setItem('appInstalled', 'true');
-            } else {
-              console.log('تم رفض التثبيت ❌');
-            }
-            deferredPrompt = null;
-          } catch (error) {
-            console.error('خطأ في التثبيت:', error);
-          }
-        }
-      });
-    });
-
-    // حدث عندما يتم تثبيت التطبيق
-    window.addEventListener('appinstalled', () => {
-      console.log('تم تثبيت التطبيق بالفعل (appinstalled event)');
-      installBtn.style.display = 'none';
-      installBanner.style.display = 'none';
-      // حفظ حالة التثبيت
-      localStorage.setItem('appInstalled', 'true');
-      
-      // إظهار رسالة تأكيد
-      setTimeout(() => {
-        alert('🎉 تم تثبيت التطبيق بنجاح! يمكنك الوصول إليه من شاشتك الرئيسية.');
-      }, 1000);
-    });
-
-    // إغلاق الشريط العلوي
-    closeBanner.addEventListener('click', () => {
-      installBanner.style.display = 'none';
-      localStorage.setItem('bannerClosed', 'true');
-    });
-
-    // إظهار/إخفاء القوانين
-    const showRulesBtn = document.getElementById("showRulesBtn");
-    const rulesContent = document.getElementById("rulesContent");
-
-    if (showRulesBtn && rulesContent) {
-      showRulesBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        rulesContent.style.display = rulesContent.style.display === "none" ? "block" : "none";
-      });
+            window.dispatchEvent(new Event('resize'));
+            scrollToTop();
+        }, 100);
     }
 
-    // التحقق الدوري إذا كان التطبيق يعمل في وضع PWA
-    setInterval(() => {
-      const isInstalled = checkIfAppIsInstalled();
-      if (isInstalled) {
-        installBtn.style.display = 'none';
-        installBanner.style.display = 'none';
-      } else {
-        // إذا لم يكن مثبتاً، تأكد من ظهور الزر
-        if (!installBtn.style.display || installBtn.style.display === 'none') {
-          installBtn.style.display = 'flex';
+    // دالة تحديث واجهة المستخدم بناءً على المدرسة المختارة
+    function updateUIForSelectedSchool() {
+        const schoolTitle = document.getElementById('schoolTitle');
+        const schoolSubtitle = document.getElementById('schoolSubtitle');
+        const centerBadge = '<span class="location-badge badge-center me-2"><i class="fas fa-building"></i> المركز الرئيسي</span>';
+        const branchBadge = '<span class="location-badge badge-branch"><i class="fas fa-code-branch"></i> فرع المدرسة</span>';
+        
+        if (selectedSchool === 'center') {
+            schoolTitle.innerHTML = 'مدارس عمران الاهلية - المركز';
+            schoolSubtitle.innerHTML = 'المركز الرئيسي - التميز في التعليم.. مستقبل مشرق لأبنائنا';
+            
+            // إظهار أقسام المركز وإخفاء أقسام الفرع
+            showCenterSections();
+            hideBranchSections();
+            
+            // تحديث البادجات في جميع الأقسام
+            updateAllBadges(centerBadge);
+            
+            // تحديث وصف الموقع الجغرافي
+            document.getElementById('locationDescription').innerHTML = 
+                'في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الأهلية - المركز الرئيسي من خلال خرائط Google.';
+                
+        } else if (selectedSchool === 'branch') {
+            schoolTitle.innerHTML = 'مدارس عمران الاهلية - الفرع';
+            schoolSubtitle.innerHTML = 'فرع المدرسة - التميز في التعليم.. مستقبل مشرق لأبنائنا';
+            
+            // إظهار أقسام الفرع وإخفاء أقسام المركز
+            showBranchSections();
+            hideCenterSections();
+            
+            // تحديث البادجات في جميع الأقسام
+            updateAllBadges(branchBadge);
+            
+            // تحديث وصف الموقع الجغرافي
+            document.getElementById('locationDescription').innerHTML = 
+                'في هذا القسم يتم تحديد الموقع الجغرافي لمدارس عمران الأهلية - فرع المدرسة من خلال خرائط Google.';
         }
-      }
-    }, 3000);
+    }
 
-    // تسجيل Service Worker للعمل بدون اتصال
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/amran/sw.js')
-          .then(function(registration) {
-            console.log('Service Worker مسجل بنجاح:', registration.scope);
-          })
-          .catch(function(error) {
-            console.log('فشل تسجيل Service Worker:', error);
+    // دالة إظهار أقسام المركز
+    function showCenterSections() {
+        const centerSections = [
+            'centerResults', 'centerHomework', 'centerAbsence', 
+            'centerActivities', 'centerLocation'
+        ];
+        
+        centerSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) section.style.display = 'block';
+        });
+        
+        // إخفاء الفرع
+        const branchSections = [
+            'branchResults', 'branchHomework', 'branchAbsence', 
+            'branchActivities', 'branchLocation'
+        ];
+        
+        branchSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) section.style.display = 'none';
+        });
+    }
+
+    // دالة إظهار أقسام الفرع
+    function showBranchSections() {
+        const branchSections = [
+            'branchResults', 'branchHomework', 'branchAbsence', 
+            'branchActivities', 'branchLocation'
+        ];
+        
+        branchSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) section.style.display = 'block';
+        });
+        
+        // إخفاء المركز
+        const centerSections = [
+            'centerResults', 'centerHomework', 'centerAbsence', 
+            'centerActivities', 'centerLocation'
+        ];
+        
+        centerSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) section.style.display = 'none';
+        });
+    }
+
+    // دالة إخفاء أقسام المركز
+    function hideCenterSections() {
+        const centerSections = [
+            'centerResults', 'centerHomework', 'centerAbsence', 
+            'centerActivities', 'centerLocation'
+        ];
+        
+        centerSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) section.style.display = 'none';
+        });
+    }
+
+    // دالة إخفاء أقسام الفرع
+    function hideBranchSections() {
+        const branchSections = [
+            'branchResults', 'branchHomework', 'branchAbsence', 
+            'branchActivities', 'branchLocation'
+        ];
+        
+        branchSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) section.style.display = 'none';
+        });
+    }
+
+    // دالة تحديث جميع البادجات
+    function updateAllBadges(badgeHTML) {
+        const badgeContainers = [
+            'resultsBadges', 'homeworkBadges', 'absenceBadges',
+            'activitiesBadges', 'locationBadges', 'footerBadges'
+        ];
+        
+        badgeContainers.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) container.innerHTML = badgeHTML;
+        });
+    }
+
+    // دالة العودة لشاشة اختيار المدرسة
+    function showSchoolSelection() {
+        // إخفاء المحتوى الرئيسي
+        document.getElementById('mainContent').style.display = 'none';
+        
+        // إخفاء زر العودة
+        backToSelectionBtn.style.display = 'none';
+        
+        // إظهار شاشة الاختيار
+        document.getElementById('schoolSelection').style.display = 'flex';
+        
+        // التمرير إلى الأعلى
+        scrollToTop();
+    }
+
+    // دالة التمرير إلى الأعلى
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // التحقق من وجود مدرسة مختارة مسبقاً عند تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedSchool = localStorage.getItem('selectedSchool');
+        
+        if (savedSchool && (savedSchool === 'center' || savedSchool === 'branch')) {
+            // إذا كان هناك مدرسة مختارة مسبقاً، نعرض المحتوى الرئيسي مباشرة
+            selectSchool(savedSchool);
+        } else {
+            // إذا لم تكن هناك مدرسة مختارة، نعرض شاشة الاختيار
+            document.getElementById('schoolSelection').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
+            backToSelectionBtn.style.display = 'none';
+        }
+        
+        // تهيئة باقي المكونات
+        initializeOtherComponents();
+    });
+
+    // تهيئة المكونات الأخرى
+    function initializeOtherComponents() {
+        // إدارة زر الإشعارات
+        const notifyBtn = document.getElementById('notifyBtn');
+        notifyBtn.style.display = 'none';
+
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(function(OneSignal) {
+          OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
+            if (!isEnabled) {
+              notifyBtn.style.display = 'block';
+            }
           });
-      });
-    }
 
-    // إضافة وظيفة لفحص حالة التثبيت يدوياً
-    function checkInstallStatus() {
-      const status = checkIfAppIsInstalled() ? 'مثبت' : 'غير مثبت';
-      console.log('حالة التثبيت الحالية:', status);
-      console.log('قيمة appInstalled في localStorage:', localStorage.getItem('appInstalled'));
-      console.log('وضع العرض:', window.matchMedia('(display-mode: standalone)').matches);
-      console.log('navigator.standalone:', window.navigator.standalone);
-      return status;
-    }
+          notifyBtn.addEventListener('click', function () {
+            OneSignal.showSlidedownPrompt().catch(function (error) {
+              alert("حدث خطأ أثناء محاولة تفعيل الإشعارات.");
+              console.error(error);
+            });
+          });
+        });
 
-    // يمكنك استدعاء هذه الدالة من console للمتصفح للتحقق
-    window.checkInstallStatus = checkInstallStatus;
-    
-    // إضافة تأثيرات تفاعلية للعناصر عند التمرير
-    document.addEventListener('DOMContentLoaded', function() {
-      const sections = document.querySelectorAll('section');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+        // إدارة زر التثبيت
+        let deferredPrompt;
+        const installBtn = document.getElementById('installBtn');
+        const installBanner = document.getElementById('installBanner');
+        const installBannerBtn = document.getElementById('installBannerBtn');
+        const closeBanner = document.getElementById('closeBanner');
+
+        // التحقق مما إذا كان التطبيق مثبتًا بالفعل
+        function checkIfAppIsInstalled() {
+          if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('التطبيق مثبت بالفعل (display-mode)');
+            localStorage.setItem('appInstalled', 'true');
+            return true;
+          }
+          
+          if (window.navigator.standalone === true) {
+            console.log('التطبيق مثبت بالفعل (navigator.standalone)');
+            localStorage.setItem('appInstalled', 'true');
+            return true;
+          }
+          
+          console.log('التطبيق غير مثبت أو تم إلغاء التثبيت');
+          localStorage.removeItem('appInstalled');
+          return false;
+        }
+
+        // إضافة زر إعادة تعيين يدوي (للتجربة فقط)
+        function addResetButton() {
+          const resetBtn = document.createElement('button');
+          resetBtn.innerHTML = '🔄 إعادة تعيين التثبيت';
+          resetBtn.style.position = 'fixed';
+          resetBtn.style.bottom = '80px';
+          resetBtn.style.left = '20px';
+          resetBtn.style.zIndex = '10001';
+          resetBtn.style.background = '#ff6b6b';
+          resetBtn.style.color = 'white';
+          resetBtn.style.border = 'none';
+          resetBtn.style.borderRadius = '20px';
+          resetBtn.style.padding = '10px 15px';
+          resetBtn.style.fontSize = '12px';
+          resetBtn.style.cursor = 'pointer';
+          resetBtn.style.boxShadow = '0 2px 10px rgba(255,107,107,0.3)';
+          
+          resetBtn.addEventListener('click', function() {
+            localStorage.removeItem('appInstalled');
+            localStorage.removeItem('bannerClosed');
+            installBtn.style.display = 'flex';
+            installBanner.style.display = 'none';
+            alert('تم إعادة تعيين إعدادات التثبيت. سيظهر زر التثبيت الآن.');
+            console.log('تم إعادة تعيين إعدادات التثبيت');
+          });
+          
+          document.body.appendChild(resetBtn);
+        }
+
+        // إظهار زر التثبيت بعد تحميل الصفحة
+        window.addEventListener('load', () => {
+          addResetButton();
+          
+          const isInstalled = checkIfAppIsInstalled();
+          
+          if (isInstalled) {
+            console.log('تم الكشف عن تطبيق مثبت - إخفاء أزرار التثبيت');
+            installBtn.style.display = 'none';
+            installBanner.style.display = 'none';
+          } else {
+            console.log('لم يتم الكشف عن تطبيق مثبت - إظهار أزرار التثبيت');
+            setTimeout(() => {
+              installBtn.style.display = 'flex';
+              setTimeout(() => {
+                if (!localStorage.getItem('bannerClosed')) {
+                  installBanner.style.display = 'block';
+                }
+              }, 5000);
+            }, 1000);
           }
         });
-      }, { threshold: 0.1 });
-      
-      sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
-      });
-    });
+
+        // الاستماع لحدث beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          
+          console.log('حدث beforeinstallprompt تم استدعاؤه');
+          
+          if (checkIfAppIsInstalled()) {
+            installBtn.style.display = 'none';
+            installBanner.style.display = 'none';
+            return;
+          }
+          
+          // تثبيت مباشر عند النقر
+          installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+              try {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                  console.log('تم تثبيت التطبيق ✅');
+                  installBtn.style.display = 'none';
+                  installBanner.style.display = 'none';
+                  localStorage.setItem('appInstalled', 'true');
+                } else {
+                  console.log('تم رفض التثبيت ❌');
+                }
+                deferredPrompt = null;
+              } catch (error) {
+                console.error('خطأ في التثبيت:', error);
+              }
+            }
+          });
+          
+          // نفس الوظيفة للشريط العلوي
+          installBannerBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+              try {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                  console.log('تم تثبيت التطبيق ✅');
+                  installBtn.style.display = 'none';
+                  installBanner.style.display = 'none';
+                  localStorage.setItem('appInstalled', 'true');
+                } else {
+                  console.log('تم رفض التثبيت ❌');
+                }
+                deferredPrompt = null;
+              } catch (error) {
+                console.error('خطأ في التثبيت:', error);
+              }
+            }
+          });
+        });
+
+        // حدث عندما يتم تثبيت التطبيق
+        window.addEventListener('appinstalled', () => {
+          console.log('تم تثبيت التطبيق بالفعل (appinstalled event)');
+          installBtn.style.display = 'none';
+          installBanner.style.display = 'none';
+          localStorage.setItem('appInstalled', 'true');
+          
+          setTimeout(() => {
+            alert('🎉 تم تثبيت التطبيق بنجاح! يمكنك الوصول إليه من شاشتك الرئيسية.');
+          }, 1000);
+        });
+
+        // إغلاق الشريط العلوي
+        closeBanner.addEventListener('click', () => {
+          installBanner.style.display = 'none';
+          localStorage.setItem('bannerClosed', 'true');
+        });
+
+        // إظهار/إخفاء القوانين
+        const showRulesBtn = document.getElementById("showRulesBtn");
+        const rulesContent = document.getElementById("rulesContent");
+
+        if (showRulesBtn && rulesContent) {
+          showRulesBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            rulesContent.style.display = rulesContent.style.display === "none" ? "block" : "none";
+          });
+        }
+
+        // التحقق الدوري إذا كان التطبيق يعمل في وضع PWA
+        setInterval(() => {
+          const isInstalled = checkIfAppIsInstalled();
+          if (isInstalled) {
+            installBtn.style.display = 'none';
+            installBanner.style.display = 'none';
+          } else {
+            if (!installBtn.style.display || installBtn.style.display === 'none') {
+              installBtn.style.display = 'flex';
+            }
+          }
+        }, 3000);
+
+        // تسجيل Service Worker للعمل بدون اتصال
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/amran/sw.js')
+              .then(function(registration) {
+                console.log('Service Worker مسجل بنجاح:', registration.scope);
+              })
+              .catch(function(error) {
+                console.log('فشل تسجيل Service Worker:', error);
+              });
+          });
+        }
+
+        // إضافة تأثيرات تفاعلية للعناصر عند التمرير
+        document.addEventListener('DOMContentLoaded', function() {
+          const sections = document.querySelectorAll('section');
+          
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+              }
+            });
+          }, { threshold: 0.1 });
+          
+          sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+          });
+        });
+    }
 </script>
 </body>
 </html>
