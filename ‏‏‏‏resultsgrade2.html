@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>مدارس عمران الاهلية - الرئيسية</title>
+  <title>مدارس عمران الاهلية -المركز- الرئيسية</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet" />
   <!-- مكتبة html2pdf.js لتحويل HTML إلى PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -90,15 +90,131 @@
     .pdf-button:hover {
       background-color: #d32f2f;
     }
-    .btn-choice {
-      margin: 3px;
-      padding: 8px 15px;
-      font-size: 13px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      background-color: #e0f7fa;
+    
+    /* بطاقات الاختيار الجديدة */
+    .choice-cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin: 20px 0;
     }
+    
+    .choice-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+    
+    .choice-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+    
+    .choice-card-header {
+      text-align: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #4CAF50;
+    }
+    
+    .choice-card-header h3 {
+      margin: 0;
+      color: #2c3e50;
+      font-size: 1.2em;
+    }
+    
+    .choice-card-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .choice-card-btn {
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 70px;
+    }
+    
+    .choice-card-btn:hover {
+      background: linear-gradient(135deg, #43A047 0%, #1B5E20 100%);
+      transform: scale(1.05);
+    }
+    
+    .choice-card-btn i {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    
+    /* ألوان مميزة للبطاقتين */
+    .first-half-card {
+      border-color: #2196F3;
+    }
+    
+    .first-half-card .choice-card-header {
+      border-bottom-color: #2196F3;
+    }
+    
+    .first-half-card .choice-card-btn {
+      background: linear-gradient(135deg, #2196F3 0%, #0D47A1 100%);
+    }
+    
+    .first-half-card .choice-card-btn:hover {
+      background: linear-gradient(135deg, #1976D2 0%, #0A2E5C 100%);
+    }
+    
+    .second-half-card {
+      border-color: #FF9800;
+    }
+    
+    .second-half-card .choice-card-header {
+      border-bottom-color: #FF9800;
+    }
+    
+    .second-half-card .choice-card-btn {
+      background: linear-gradient(135deg, #FF9800 0%, #E65100 100%);
+    }
+    
+    .second-half-card .choice-card-btn:hover {
+      background: linear-gradient(135deg, #F57C00 0%, #BF360C 100%);
+    }
+    
+    /* زر طباعة النتيجة - مخفي بالبداية */
+    .print-result-button {
+      display: none;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+    
+    .print-result-button:hover {
+      background-color: #388E3C;
+    }
+    
     #resultsForm label {
       font-size: 12px;
       color: #444;
@@ -365,6 +481,16 @@
         font-size: 12px;
       }
       
+      .choice-cards-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .choice-card {
+        width: 100%;
+        max-width: 300px;
+      }
+      
       .info-grid {
         grid-template-columns: 1fr;
       }
@@ -403,6 +529,7 @@
       .home-button,
       .print-button,
       .pdf-button,
+      .print-result-button,
       #choiceSection {
         display: none !important;
       }
@@ -511,20 +638,69 @@
 
   <div style="text-align:center;">
     <a href="index.html" class="home-button">🏠 الرئيسية</a>
-    <a href="#" class="print-button" onclick="window.print()">🖨️ طباعة الصفحة</a>
+    <!-- تم إخفاء زر الطباعة من هنا وإضافته بعد ظهور النتيجة -->
+  </div>
+
+  <!-- زر طباعة النتيجة - يظهر فقط بعد عرض النتائج -->
+  <div style="text-align:center;">
+    <button id="printResultButton" class="print-result-button">🖨️ طباعة النتيجة</button>
     <a href="#" class="pdf-button" id="savePdfButton" style="display:none;">📄 حفظ كـ PDF</a>
   </div>
 
-  <section id="choiceSection" style="text-align: center; margin-top: 20px;">
-    <h3>اختر نوع النتيجة:</h3>
-    <button class="btn-choice" data-api="API_محرم" data-title="نتائج الصفوف الاساسية شهر محرم">📘 محصلة شهر محرم</button>
-    <button class="btn-choice" data-api="API_صفر" data-title="نتائج الصفوف الاساسية شهر صفر">📘 محصلة شهر صفر</button>
-    <button class="btn-choice" data-api="API_ربيع_اول" data-title="نتائج الصفوف الاساسية شهر ربيع أول">📘 محصلة شهر ربيع أول</button>
-    <button class="btn-choice" data-api="API_نصف_العام" data-title="نتائج الصفوف الاساسية نصف العام">📗 نتيجة نصف العام</button>
-    <button class="btn-choice" data-api="API_جماد_اول" data-title="نتائج الصفوف الاساسية شهر جماد أول">📙 محصلة شهر جماد أول</button>
-    <button class="btn-choice" data-api="API_جماد_ثاني" data-title="نتائج الصفوف الاساسية شهر جماد ثاني">📙 محصلة شهر جماد ثاني</button>
-    <button class="btn-choice" data-api="API_رجب" data-title="نتائج الصفوف الاساسية شهر رجب">📙 محصلة شهر رجب</button>
-    <button class="btn-choice" data-api="API_آخر_العام" data-title="نتائج الصفوف الاساسية آخر العام">📕 نتيجة آخر العام</button>
+  <section id="choiceSection" style="margin-top: 20px;">
+    <h3 style="text-align:center; color: #2c3e50; margin-bottom: 20px;">اختر نوع النتيجة:</h3>
+    
+    <div class="choice-cards-container">
+      <!-- البطاقة الأولى: نتائج النصف الأول -->
+      <div class="choice-card first-half-card">
+        <div class="choice-card-header">
+          <h3>📚 نتائج النصف الأول</h3>
+        </div>
+        <div class="choice-card-buttons">
+          <button class="choice-card-btn" data-api="API_محرم" data-title="نتائج الصفوف الاساسية شهر محرم">
+            <i>📘</i>
+            محرم
+          </button>
+          <button class="choice-card-btn" data-api="API_صفر" data-title="نتائج الصفوف الاساسية شهر صفر">
+            <i>📘</i>
+            صفر
+          </button>
+          <button class="choice-card-btn" data-api="API_ربيع_اول" data-title="نتائج الصفوف الاساسية شهر ربيع أول">
+            <i>📘</i>
+            ربيع أول
+          </button>
+          <button class="choice-card-btn" data-api="API_نصف_العام" data-title="نتائج الصفوف الاساسية نصف العام">
+            <i>📗</i>
+            نصف العام
+          </button>
+        </div>
+      </div>
+      
+      <!-- البطاقة الثانية: نتائج النصف الثاني -->
+      <div class="choice-card second-half-card">
+        <div class="choice-card-header">
+          <h3>📚 نتائج النصف الثاني</h3>
+        </div>
+        <div class="choice-card-buttons">
+          <button class="choice-card-btn" data-api="API_جماد_اول" data-title="نتائج الصفوف الاساسية شهر جماد أول">
+            <i>📙</i>
+            جماد أول
+          </button>
+          <button class="choice-card-btn" data-api="API_جماد_ثاني" data-title="نتائج الصفوف الاساسية شهر جماد ثاني">
+            <i>📙</i>
+            جماد ثاني
+          </button>
+          <button class="choice-card-btn" data-api="API_رجب" data-title="نتائج الصفوف الاساسية شهر رجب">
+            <i>📙</i>
+            رجب
+          </button>
+          <button class="choice-card-btn" data-api="API_آخر_العام" data-title="نتائج الصفوف الاساسية آخر العام">
+            <i>📕</i>
+            آخر العام
+          </button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="results" style="display: none; margin-top: 20px;">
@@ -553,7 +729,7 @@
   let currentResultType = "";
 
   // التعامل مع أزرار الاختيار
-  document.querySelectorAll(".btn-choice").forEach((btn) => {
+  document.querySelectorAll(".choice-card-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const apiKey = btn.dataset.api;
       const pageTitle = btn.dataset.title;
@@ -566,7 +742,7 @@
         API_جماد_اول: "https://script.google.com/macros/s/AKfycbxv7-SoxvyhsXQEP81drCFNju8_hblzFWux14UTzqyJXNyml5QUs6viuqDi39BB07do/exec",
         API_جماد_ثاني: "https://script.google.com/macros/s/AKfycbzff7DSsRj4ySvByHoKNnkH3-mG-Bh_602PCXCvt1hpMXbOoKQ9I3nnhGN5QHzbR4mFyw/exec",
         API_رجب: "https://script.google.com/macros/s/AKfycbxqQG_lvHghC32PA_e0vQsgwN9jOVRkJKUwjl5my59ir0Ce_vs9v9X1f4siIxQ2PlWc/exec",
-        API_آخر_العام: "https://script.google.com/macros/s/AKfycbzyke1TJBz043kykDBaCQgAGOO4nq8UWUktiaX-qhVCvhwwVhyK68pxs0d5Gqm/exec",
+        API_آخر_العام: "https://script.google.com/macros/s/AKfycbxrL4fTx8LaHRAkk0p4trynty2CLG4sLOiBOrp8ASQuUHATvBDV8Lg0M6Oq80D301T6OA/exec",
       };
 
       currentApiUrl = apiMap[apiKey];
@@ -581,6 +757,7 @@
       document.getElementById("resultsOutput").innerHTML = ""; // تفريغ النتائج
       document.getElementById("savePdfButton").style.display = "none"; // إخفاء زر PDF
       document.getElementById("resultsForm").style.display = "block"; // إظهار نموذج البحث
+      document.getElementById("printResultButton").style.display = "none"; // إخفاء زر الطباعة
     });
   });
 
@@ -609,12 +786,13 @@
         if (data.status !== "نجاح") {
           output.innerHTML = `
             <div class="alert-message">
-              <h3>⚠️ لم يتم العثور على النتيجة أو أن الطالب موقف</h3>
+              <h3>⚠️ لم يتم العثور على النتيجة  </h3>
               <p>${data.message}</p>
               <p>يرجى التحقق من كود الطالب والمحاولة مرة أخرى</p>
             </div>
           `;
           document.getElementById("savePdfButton").style.display = "none";
+          document.getElementById("printResultButton").style.display = "none";
           return;
         }
 
@@ -633,7 +811,6 @@
           "الاسم": data.بيانات_الطالب?.الاسم || "غير متوفر",
           "الصف": data.بيانات_الطالب?.الصف || "غير متوفر",
           "الشعبة": data.بيانات_الطالب?.الشعبة || "غير متوفر",
-         
         };
         
         for (const [key, value] of Object.entries(studentFields)) {
@@ -679,6 +856,7 @@
 
         output.innerHTML = studentInfo + subjectsTable + finalResults;
         document.getElementById("savePdfButton").style.display = "inline-block";
+        document.getElementById("printResultButton").style.display = "block"; // إظهار زر الطباعة
         
         // إخفاء نموذج إدخال الكود بعد عرض النتائج
         document.getElementById("resultsForm").style.display = "none";
@@ -696,6 +874,7 @@
           </div>
         `;
         document.getElementById("savePdfButton").style.display = "none";
+        document.getElementById("printResultButton").style.display = "none";
       });
   });
 
@@ -838,6 +1017,11 @@
       console.error("خطأ في تسجيل العرض:", error);
     });
   }
+
+  // زر طباعة النتيجة
+  document.getElementById("printResultButton").addEventListener("click", function() {
+    window.print();
+  });
 
   // دالة لحفظ النتيجة كـ PDF
   document.getElementById("savePdfButton").addEventListener("click", function() {
